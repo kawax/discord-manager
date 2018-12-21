@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\Console;
 
 use RestCord\DiscordClient;
 use React\EventLoop\Factory as React;
@@ -20,7 +21,12 @@ class DiscordManagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\MakeCommand::class,
+                Console\MakeDirect::class,
+            ]);
+        }
     }
 
     /**

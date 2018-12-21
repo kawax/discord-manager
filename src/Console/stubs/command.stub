@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use CharlotteDunois\Yasmin\Models\Message;
+
+class DummyClass
+{
+    /**
+     * @var string
+     */
+    public $command = 'test';
+
+    /**
+     * @param Message $message
+     *
+     * @return string
+     */
+    public function __invoke(Message $message)
+    {
+        return 'Hi! ' . $message->author->username;
+    }
+}
