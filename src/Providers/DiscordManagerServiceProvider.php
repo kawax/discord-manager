@@ -50,7 +50,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
 
         $this->app->singleton(Yasmin::class, function () {
             return new Yasmin(
-                $this->app['config']->get('services.discord.yasmin'),
+                $this->app['config']->get('services.discord.yasmin', []),
                 React::create()
             );
         });
