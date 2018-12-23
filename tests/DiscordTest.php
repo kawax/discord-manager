@@ -50,10 +50,9 @@ class DiscordTest extends TestCase
         $manager->add('Tests\Discord\Directs\DmTestCommand', $manager::DIRECTS);
 
         $message = m::mock('overload:' . Message::class);
-        $message->author = new class
-        {
-            public $username = 'test_user';
-        };
+        $message->author = (object)[
+            'username' => 'test_user',
+        ];
         $message->content = '/test';
 
         $reply = $manager->direct($message);
@@ -76,6 +75,15 @@ class DiscordTest extends TestCase
         $loop = Yasmin::loop();
 
         $this->assertNotNull($loop);
+    }
+
+    public function testYasminOn()
+    {
+        $this->expectNotToPerformAssertions();
+
+        Yasmin::on('message', function () {
+
+        });
     }
 
     public function testYasminFail()

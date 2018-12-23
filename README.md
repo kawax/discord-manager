@@ -49,7 +49,19 @@ php artisan make:discord:direct NewDmCommand
 ## Yasmin
 ```php
 use Revolution\DiscordManager\Facades\Yasmin;
+use CharlotteDunois\Yasmin\Models\Message;
 
+
+Yasmin::on('ready', function () {
+    $this->info(Yasmin::user()->tag);
+});
+
+Yasmin::on('message', function (Message $message) {
+
+});
+
+Yasmin::login('token');
+Yasmin::getLoop()->run();
 ```
 
 https://github.com/CharlotteDunois/Yasmin
