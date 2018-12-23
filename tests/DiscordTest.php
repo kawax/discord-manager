@@ -33,10 +33,9 @@ class DiscordTest extends TestCase
         $manager->add('Tests\Discord\Commands\TestCommand', $manager::COMMANDS);
 
         $message = m::mock('overload:' . Message::class);
-        $message->author = new class
-        {
-            public $username = 'test_user';
-        };
+        $message->author = (object)[
+            'username' => 'test_user',
+        ];
         $message->content = '/test';
 
         $reply = $manager->command($message);
