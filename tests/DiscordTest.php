@@ -81,7 +81,6 @@ class DiscordTest extends TestCase
         $this->expectNotToPerformAssertions();
 
         Yasmin::on('message', function () {
-
         });
     }
 
