@@ -6,6 +6,8 @@ use Mockery as m;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
+use Revolution\DiscordManager\Facades\Yasmin;
+use Revolution\DiscordManager\Facades\RestCord;
 
 use CharlotteDunois\Yasmin\Models\Message;
 
@@ -67,5 +69,33 @@ class DiscordTest extends TestCase
         $reply = DiscordManagerFacade::command($message);
 
         $this->assertSame('Command Not Found!', $reply);
+    }
+
+    public function testYasmin()
+    {
+        $loop = Yasmin::loop();
+
+        $this->assertNotNull($loop);
+    }
+
+    public function testYasminFail()
+    {
+        $this->expectException(\BadMethodCallException::class);
+
+        $loop = Yasmin::loops();
+    }
+
+    public function testRestCord()
+    {
+        $channel = RestCord::channel();
+
+        $this->assertNotNull($channel);
+    }
+
+    public function testRestCordFail()
+    {
+        $this->expectException(\BadMethodCallException::class);
+
+        $channel = RestCord::channels();
     }
 }

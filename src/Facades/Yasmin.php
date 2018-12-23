@@ -17,4 +17,15 @@ class Yasmin extends Facade
     {
         return Client::class;
     }
+
+    public static function __callStatic($method, $args)
+    {
+        try {
+            return static::getFacadeRoot()->$method;
+        } catch (\Exception $e) {
+            throw new \BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+        }
+    }
 }

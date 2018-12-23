@@ -40,6 +40,33 @@ DISCORD_CHANNEL=
 DISCORD_BOT=
 ```
 
+## make command
+```
+php artisan make:discord:command NewChannelCommand
+php artisan make:discord:direct NewDmCommand
+```
+
+## Yasmin
+```php
+use Revolution\DiscordManager\Facades\Yasmin;
+
+```
+
+https://github.com/CharlotteDunois/Yasmin
+
+## RestCord
+
+```php
+use Revolution\DiscordManager\Facades\RestCord;
+
+RestCord::channel()->createMessage([
+  'channel.id' => 0,
+  'content' => 'test,
+]);
+```
+
+https://github.com/restcord/restcord
+
 ## LICENSE
 MIT  
 Copyright kawax
