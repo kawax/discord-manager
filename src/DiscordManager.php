@@ -7,6 +7,7 @@ use Revolution\DiscordManager\Contracts\Factory;
 use Symfony\Component\Finder\Finder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Console\Parser;
 use CharlotteDunois\Yasmin\Models\Message;
 
 class DiscordManager implements Factory
@@ -81,7 +82,7 @@ class DiscordManager implements Factory
             return '';
         }
 
-        $command = Str::before(Str::after(data_get($message, 'content'), $this->prefix), ' ');
+        [$command] = Parser::parse(Str::after(data_get($message, 'content'), $this->prefix));
 
         if (Arr::has($this->$type, $command) and is_callable([($this->$type)[$command], '__invoke'])) {
             return ($this->$type)[$command]($message);
@@ -129,8 +130,10 @@ class DiscordManager implements Factory
             if (!(new ReflectionClass($command))->isAbstract()) {
                 $cmd = app($command);
 
+                [$name] = Parser::parse($cmd->command);
+
                 if (!($cmd->hidden ?? false)) {
-                    ($this->$type)[$cmd->command] = $cmd;
+                    ($this->$type)[$name] = $cmd;
                 }
             }
         } catch (\ReflectionException $e) {

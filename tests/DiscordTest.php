@@ -49,9 +49,6 @@ class DiscordTest extends TestCase
         $manager->add('Tests\Discord\Commands\HiddenCommand', $manager::COMMANDS);
 
         $message = m::mock('overload:' . Message::class);
-        $message->author = (object)[
-            'username' => 'test_user',
-        ];
         $message->content = '/hide';
 
         $reply = $manager->command($message);
@@ -119,5 +116,18 @@ class DiscordTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
 
         $channel = RestCord::channels();
+    }
+
+    public function testArgvCommand()
+    {
+        $manager = app(Factory::class);
+        $manager->add('Tests\Discord\Commands\ArgvCommand', $manager::COMMANDS);
+
+        $message = m::mock('overload:' . Message::class);
+        $message->content = '/argv test --option=test';
+
+        $reply = $manager->command($message);
+
+        $this->assertSame('argv! test test', $reply);
     }
 }
