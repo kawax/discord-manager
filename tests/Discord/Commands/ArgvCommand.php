@@ -8,8 +8,6 @@ use Illuminate\Console\Parser;
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class ArgvCommand
 {
@@ -31,7 +29,7 @@ class ArgvCommand
         $definition->setArguments($args);
         $definition->setOptions($options);
 
-        $argv = explode(' ', $message->content);
+        $argv = explode(' ', $message->cleanContent);
 
         $input = new ArgvInput($argv, $definition);
 
