@@ -43,6 +43,22 @@ class DiscordTest extends TestCase
         $this->assertSame('test! test_user', $reply);
     }
 
+    public function testHiddenCommand()
+    {
+        $manager = app(Factory::class);
+        $manager->add('Tests\Discord\Commands\HiddenCommand', $manager::COMMANDS);
+
+        $message = m::mock('overload:' . Message::class);
+        $message->author = (object)[
+            'username' => 'test_user',
+        ];
+        $message->content = '/hide';
+
+        $reply = $manager->command($message);
+
+        $this->assertSame('Command Not Found!', $reply);
+    }
+
     public function testDmCommand()
     {
         $manager = app(Factory::class);

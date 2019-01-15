@@ -127,9 +127,11 @@ class DiscordManager implements Factory
     {
         try {
             if (!(new ReflectionClass($command))->isAbstract()) {
-                $com = app($command);
+                $cmd = app($command);
 
-                ($this->$type)[$com->command] = $com;
+                if (!($cmd->hidden ?? false)) {
+                    ($this->$type)[$cmd->command] = $cmd;
+                }
             }
         } catch (\ReflectionException $e) {
             return;
