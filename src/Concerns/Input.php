@@ -1,6 +1,6 @@
 <?php
 
-namespace Revolution\DiscordManager\Traits;
+namespace Revolution\DiscordManager\Concerns;
 
 use Illuminate\Console\Parser;
 
