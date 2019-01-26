@@ -78,11 +78,11 @@ class DiscordManager implements Factory
      */
     protected function invoke(Message $message, $type = self::COMMANDS)
     {
-        if (!Str::contains(data_get($message, 'cleanContent'), $this->prefix)) {
+        if (!Str::contains(data_get($message, 'content'), $this->prefix)) {
             return '';
         }
 
-        [$command] = Parser::parse(Str::after(data_get($message, 'cleanContent'), $this->prefix));
+        [$command] = Parser::parse(Str::after(data_get($message, 'content'), $this->prefix));
 
         if (Arr::has($this->$type, $command) and is_callable([($this->$type)[$command], '__invoke'])) {
             return ($this->$type)[$command]($message);

@@ -22,7 +22,7 @@ class ArgvCommand
      */
     public function __invoke(Message $message)
     {
-        $input = $this->input(explode(' ', $message->cleanContent));
+        $input = $this->input(explode(' ', $message->content));
 
         return 'argv! ' . $input->getArgument('test') . ' ' . $input->getOption('option');
     }

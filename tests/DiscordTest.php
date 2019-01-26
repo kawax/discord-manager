@@ -36,7 +36,7 @@ class DiscordTest extends TestCase
         $message->author = (object)[
             'username' => 'test_user',
         ];
-        $message->cleanContent = '/test';
+        $message->content = '/test';
 
         $reply = $manager->command($message);
 
@@ -49,7 +49,7 @@ class DiscordTest extends TestCase
         $manager->add('Tests\Discord\Commands\HiddenCommand', $manager::COMMANDS);
 
         $message = m::mock('overload:' . Message::class);
-        $message->cleanContent = '/hide';
+        $message->content = '/hide';
 
         $reply = $manager->command($message);
 
@@ -65,7 +65,7 @@ class DiscordTest extends TestCase
         $message->author = (object)[
             'username' => 'test_user',
         ];
-        $message->cleanContent = '/test';
+        $message->content = '/test';
 
         $reply = $manager->direct($message);
 
@@ -75,7 +75,7 @@ class DiscordTest extends TestCase
     public function testCommandNotFound()
     {
         $message = m::mock('overload:' . Message::class);
-        $message->cleanContent = '/test';
+        $message->content = '/test';
 
         $reply = DiscordManagerFacade::command($message);
 
@@ -124,7 +124,7 @@ class DiscordTest extends TestCase
         $manager->add('Tests\Discord\Commands\ArgvCommand', $manager::COMMANDS);
 
         $message = m::mock('overload:' . Message::class);
-        $message->cleanContent = '/argv test --option=test';
+        $message->content = '/argv test --option=test';
 
         $reply = $manager->command($message);
 
