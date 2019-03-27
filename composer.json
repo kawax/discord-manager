@@ -19,6 +19,9 @@
     "mockery/mockery": "^1.0",
     "orchestra/testbench": "~3.5"
   },
+  "conflict": {
+    "cakephp/core": "*"
+  },
   "autoload": {
     "psr-4": {
       "Revolution\\DiscordManager\\": "src/"
