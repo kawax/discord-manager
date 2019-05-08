@@ -16,7 +16,7 @@ class ArgvCommand
     public $command = 'argv {test} {--option=}';
 
     /**
-     * @param Message $message
+     * @param  Message  $message
      *
      * @return string
      */
@@ -24,6 +24,6 @@ class ArgvCommand
     {
         $input = $this->input(explode(' ', $message->content));
 
-        return 'argv! ' . $input->getArgument('test') . ' ' . $input->getOption('option');
+        return 'argv! '.$input->getArgument('test').' '.$input->getOption('option');
     }
 }

@@ -27,7 +27,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      *
      * @return void
      */
@@ -37,8 +37,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'prefix'    => '/',
             'not_found' => 'Command Not Found!',
             'path'      => [
-                'commands' => __DIR__ . '/Discord/Commands',
-                'directs'  => __DIR__ . '/Discord/Directs',
+                'commands' => __DIR__.'/Discord/Commands',
+                'directs'  => __DIR__.'/Discord/Directs',
             ],
             'token'     => 'test',
             'channel'   => '1',

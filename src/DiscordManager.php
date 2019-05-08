@@ -39,7 +39,7 @@ class DiscordManager implements Factory
     /**
      * DiscordManager constructor.
      *
-     * @param array $config
+     * @param  array  $config
      */
     public function __construct($config)
     {
@@ -51,7 +51,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param Message $message
+     * @param  Message  $message
      *
      * @return string
      */
@@ -61,7 +61,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param Message $message
+     * @param  Message  $message
      *
      * @return string
      */
@@ -71,14 +71,14 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param Message $message
-     * @param string  $type
+     * @param  Message  $message
+     * @param  string  $type
      *
      * @return string
      */
     protected function invoke(Message $message, $type = self::COMMANDS)
     {
-        if (!Str::contains(data_get($message, 'content'), $this->prefix)) {
+        if (! Str::contains(data_get($message, 'content'), $this->prefix)) {
             return '';
         }
 
@@ -92,8 +92,8 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param string|array $paths
-     * @param string       $type
+     * @param  string|array  $paths
+     * @param  string  $type
      */
     protected function load($paths, string $type)
     {
@@ -110,10 +110,10 @@ class DiscordManager implements Factory
         $namespace = app()->getNamespace();
 
         foreach ((new Finder)->in($paths)->files() as $command) {
-            $command = $namespace . str_replace(
+            $command = $namespace.str_replace(
                     ['/', '.php'],
                     ['\\', ''],
-                    Str::after($command->getPathname(), app_path() . DIRECTORY_SEPARATOR)
+                    Str::after($command->getPathname(), app_path().DIRECTORY_SEPARATOR)
                 );
 
             $this->add($command, $type);
@@ -121,18 +121,18 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param string $command
-     * @param string $type
+     * @param  string  $command
+     * @param  string  $type
      */
     public function add(string $command, string $type = self::COMMANDS)
     {
         try {
-            if (!(new ReflectionClass($command))->isAbstract()) {
+            if (! (new ReflectionClass($command))->isAbstract()) {
                 $cmd = app($command);
 
                 [$name] = Parser::parse($cmd->command);
 
-                if (!($cmd->hidden ?? false)) {
+                if (! ($cmd->hidden ?? false)) {
                     ($this->$type)[$name] = $cmd;
                 }
             }

@@ -10,7 +10,7 @@
     "php": ">=7.1.3",
     "illuminate/support": "^5.7",
     "illuminate/console": "^5.7",
-    "charlottedunois/yasmin": "^0.5.1",
+    "charlottedunois/yasmin": "^0.6",
     "laravel-notification-channels/discord": "^1.0",
     "restcord/restcord": "^0.3.0"
   },

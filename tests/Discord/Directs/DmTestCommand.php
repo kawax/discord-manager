@@ -12,12 +12,12 @@ class DmTestCommand
     public $command = 'test';
 
     /**
-     * @param Message $message
+     * @param  Message  $message
      *
      * @return string
      */
     public function __invoke(Message $message)
     {
-        return 'dm test! ' . $message->author->username;
+        return 'dm test! '.$message->author->username;
     }
 }

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 trait Input
 {
     /**
-     * @param array $argv
+     * @param  array  $argv
      *
      * @return InputInterface
      */

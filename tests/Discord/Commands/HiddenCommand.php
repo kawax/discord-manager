@@ -17,7 +17,7 @@ class HiddenCommand
     public $hidden = true;
 
     /**
-     * @param Message $message
+     * @param  Message  $message
      *
      * @return string
      */
