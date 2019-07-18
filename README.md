@@ -77,7 +77,7 @@ use Revolution\DiscordManager\Facades\RestCord;
 
 RestCord::channel()->createMessage([
   'channel.id' => 0,
-  'content' => 'test,
+  'content' => 'test',
 ]);
 ```
 
