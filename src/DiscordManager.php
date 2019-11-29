@@ -99,9 +99,12 @@ class DiscordManager implements Factory
     {
         $paths = array_unique(Arr::wrap($paths));
 
-        $paths = array_filter($paths, function ($path) {
-            return is_dir($path);
-        });
+        $paths = array_filter(
+            $paths,
+            function ($path) {
+                return is_dir($path);
+            }
+        );
 
         if (empty($paths)) {
             return;
@@ -127,14 +130,22 @@ class DiscordManager implements Factory
     public function add(string $command, string $type = self::COMMANDS)
     {
         try {
-            if (! (new ReflectionClass($command))->isAbstract()) {
-                $cmd = app($command);
+            if ((new ReflectionClass($command))->isAbstract()) {
+                return;
+            }
 
-                [$name] = Parser::parse($cmd->command);
+            $cmd = app($command);
 
-                if (! ($cmd->hidden ?? false)) {
-                    ($this->$type)[$name] = $cmd;
-                }
+            [$name] = Parser::parse($cmd->command);
+
+            if (($cmd->hidden ?? false)) {
+                return;
+            }
+
+            if ($type === self::COMMANDS) {
+                $this->commands[$name] = $cmd;
+            } elseif ($type === self::DIRECTS) {
+                $this->directs[$name] = $cmd;
             }
         } catch (\ReflectionException $e) {
             return;
