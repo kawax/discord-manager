@@ -112,7 +112,7 @@ class DiscordManager implements Factory
 
         $namespace = app()->getNamespace();
 
-        foreach ((new Finder)->in($paths)->files() as $command) {
+        foreach ((new Finder())->in($paths)->files() as $command) {
             $command = $namespace.str_replace(
                     ['/', '.php'],
                     ['\\', ''],
