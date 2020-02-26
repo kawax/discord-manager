@@ -23,8 +23,6 @@ trait Input
         $definition->setArguments($args);
         $definition->setOptions($options);
 
-        $input = new ArgvInput($argv, $definition);
-
-        return $input;
+        return new ArgvInput($argv, $definition);
     }
 }
