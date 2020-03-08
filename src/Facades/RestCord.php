@@ -3,7 +3,6 @@
 namespace Revolution\DiscordManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
-
 use RestCord\DiscordClient;
 
 class RestCord extends Facade

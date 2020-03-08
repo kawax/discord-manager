@@ -2,9 +2,8 @@
 
 namespace Revolution\DiscordManager\Facades;
 
-use Illuminate\Support\Facades\Facade;
-
 use CharlotteDunois\Yasmin\Client;
+use Illuminate\Support\Facades\Facade;
 
 class Yasmin extends Facade
 {

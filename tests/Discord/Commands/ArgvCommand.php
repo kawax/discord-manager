@@ -3,7 +3,6 @@
 namespace Tests\Discord\Commands;
 
 use CharlotteDunois\Yasmin\Models\Message;
-
 use Revolution\DiscordManager\Concerns\Input;
 
 class ArgvCommand

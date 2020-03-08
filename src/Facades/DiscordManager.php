@@ -3,7 +3,6 @@
 namespace Revolution\DiscordManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
-
 use Revolution\DiscordManager\Contracts\Factory;
 
 class DiscordManager extends Facade

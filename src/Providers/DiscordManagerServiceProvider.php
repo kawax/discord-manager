@@ -2,15 +2,13 @@
 
 namespace Revolution\DiscordManager\Providers;
 
+use CharlotteDunois\Yasmin\Client as Yasmin;
 use Illuminate\Support\ServiceProvider;
-
+use React\EventLoop\Factory as React;
+use RestCord\DiscordClient;
+use Revolution\DiscordManager\Console;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
-use Revolution\DiscordManager\Console;
-
-use RestCord\DiscordClient;
-use React\EventLoop\Factory as React;
-use CharlotteDunois\Yasmin\Client as Yasmin;
 
 class DiscordManagerServiceProvider extends ServiceProvider
 {
