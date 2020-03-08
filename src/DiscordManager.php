@@ -2,13 +2,13 @@
 
 namespace Revolution\DiscordManager;
 
+use CharlotteDunois\Yasmin\Models\Message;
+use Illuminate\Console\Parser;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use Revolution\DiscordManager\Contracts\Factory;
 use Symfony\Component\Finder\Finder;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Console\Parser;
-use CharlotteDunois\Yasmin\Models\Message;
 
 class DiscordManager implements Factory
 {
