@@ -6,27 +6,9 @@
     "laravel"
   ],
   "license": "MIT",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/laravel-discord/Yasmin"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/laravel-discord/Collection"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/laravel-discord/EventEmitter"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/laravel-discord/Validator"
-    }
-  ],
   "require": {
     "php": "^7.2||^8.0",
-    "charlottedunois/yasmin": "^0.7",
+    "laravel-discord/yasmin": "^0.8",
     "laravel-notification-channels/discord": "^1.0",
     "restcord/restcord": "^0.3.0"
   },
