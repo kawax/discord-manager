@@ -68,8 +68,8 @@ Yasmin::login('token');
 Yasmin::getLoop()->run();
 ```
 
-https://github.com/CharlotteDunois/Yasmin
-https://github.com/laravel-discord/Yasmin
+- https://github.com/CharlotteDunois/Yasmin
+- https://github.com/laravel-discord/Yasmin (forked)
 
 ## RestCord
 
