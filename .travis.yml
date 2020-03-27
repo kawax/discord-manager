@@ -9,9 +9,9 @@ jobs:
     - php: nightly
       env: COMPOSER_OPTION=--ignore-platform-reqs
 
-cache:
-  directories:
-    - vendor
+#cache:
+#  directories:
+#    - vendor
 
 before_script:
   - travis_retry composer install --no-interaction --no-suggest $COMPOSER_OPTION
