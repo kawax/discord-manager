@@ -69,6 +69,7 @@ Yasmin::getLoop()->run();
 ```
 
 https://github.com/CharlotteDunois/Yasmin
+https://github.com/laravel-discord/Yasmin
 
 ## RestCord
 
