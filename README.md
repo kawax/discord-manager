@@ -9,7 +9,7 @@
 
 ## Requirements
 - PHP >= 7.2
-- Laravel >= 5.8 or other illuminate base project
+- Laravel >= 6.0 or other illuminate base project
 
 ## Installation
 
