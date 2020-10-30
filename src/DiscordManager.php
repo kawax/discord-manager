@@ -51,7 +51,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  Message  $message
+     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
      *
      * @return string
      */
@@ -61,7 +61,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  Message  $message
+     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
      *
      * @return string
      */
@@ -71,7 +71,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  Message  $message
+     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
      * @param  string  $type
      *
      * @return string
