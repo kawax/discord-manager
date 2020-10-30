@@ -19,6 +19,9 @@ composer require revolution/discord-manager
 
 ### config/services.php
 ```php
+use CharlotteDunois\Yasmin\WebSocket\Intents;
+
+return [
     'discord' => [
         'prefix'    => '/',
         'not_found' => 'Command Not Found!',
@@ -33,8 +36,10 @@ composer require revolution/discord-manager
             'ws.disabledEvents' => [
                 'TYPING_START',
             ],
+            'intents'           => array_sum(Intents::default()),
         ],
     ],
+];
 ```
 
 ### .env
