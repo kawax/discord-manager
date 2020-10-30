@@ -6,10 +6,12 @@ use CharlotteDunois\Yasmin\Client;
 use CharlotteDunois\Yasmin\Models\ClientUser;
 use Illuminate\Support\Facades\Facade;
 use React\EventLoop\LoopInterface;
+use React\Promise\ExtendedPromiseInterface;
 
 /**
  * @method static ClientUser|null user()
  * @method static LoopInterface getLoop()
+ * @method static ExtendedPromiseInterface login(string $token, bool $force = false)
  *
  * @method static on(string $event, callable $listener)
  * @method static once(string $event, callable $listener)
