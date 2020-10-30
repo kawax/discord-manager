@@ -15,6 +15,8 @@ use React\EventLoop\LoopInterface;
  * @method static once(string $event, callable $listener)
  * @method static removeListener(string $event, callable $listener)
  * @method static removeAllListeners($event = null)
+ *
+ * @see \CharlotteDunois\Yasmin\Client
  */
 class Yasmin extends Facade
 {

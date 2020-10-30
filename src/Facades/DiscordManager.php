@@ -8,6 +8,8 @@ use Revolution\DiscordManager\Contracts\Factory;
 /**
  * @method static string command(\CharlotteDunois\Yasmin\Models\Message $message)
  * @method static string direct(\CharlotteDunois\Yasmin\Models\Message $message)
+ *
+ * @see \Revolution\DiscordManager\DiscordManager
  */
 class DiscordManager extends Facade
 {
