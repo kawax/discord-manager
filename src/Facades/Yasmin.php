@@ -3,8 +3,19 @@
 namespace Revolution\DiscordManager\Facades;
 
 use CharlotteDunois\Yasmin\Client;
+use CharlotteDunois\Yasmin\Models\ClientUser;
 use Illuminate\Support\Facades\Facade;
+use React\EventLoop\LoopInterface;
 
+/**
+ * @method static ClientUser|null user()
+ * @method static LoopInterface getLoop()
+ *
+ * @method static on(string $event, callable $listener)
+ * @method static once(string $event, callable $listener)
+ * @method static removeListener(string $event, callable $listener)
+ * @method static removeAllListeners($event = null)
+ */
 class Yasmin extends Facade
 {
     /**
@@ -25,8 +36,12 @@ class Yasmin extends Facade
             return parent::__callStatic($method, $args);
         }
 
-        throw new \BadMethodCallException(sprintf(
-            'Method %s::%s does not exist.', static::class, $method
-        ));
+        throw new \BadMethodCallException(
+            sprintf(
+                'Method %s::%s does not exist.',
+                static::class,
+                $method
+            )
+        );
     }
 }
