@@ -8,7 +8,7 @@
   "license": "MIT",
   "require": {
     "php": "^7.3||^8.0",
-    "laravel-discord/yasmin": "^1.0-beta.1",
+    "laravel-discord/yasmin": "dev-master",
     "laravel-notification-channels/discord": "^1.0",
     "restcord/restcord": "^0.4.0",
     "illuminate/support": "^6.0||^7.0||^8.0"
