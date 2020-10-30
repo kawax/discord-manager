@@ -3,15 +3,14 @@ language: php
 
 jobs:
   include:
-    - php: 7.2
     - php: 7.3
     - php: 7.4
     - php: nightly
       env: COMPOSER_OPTION=--ignore-platform-reqs
 
-#cache:
-#  directories:
-#    - vendor
+cache:
+  directories:
+    - vendor
 
 before_script:
   - travis_retry composer install --no-interaction $COMPOSER_OPTION
