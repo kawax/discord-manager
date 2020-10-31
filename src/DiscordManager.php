@@ -46,8 +46,8 @@ class DiscordManager implements Factory
         $this->prefix = data_get($config, 'prefix', '/');
         $this->not_found = data_get($config, 'not_found', 'Command Not Found!');
 
-        $this->load(data_get($config, 'path.commands', app_path('Discord/Commands')), self::COMMANDS);
-        $this->load(data_get($config, 'path.directs', app_path('Discord/Directs')), self::DIRECTS);
+        $this->load(data_get($config, 'path.commands', app()->path('Discord/Commands')), self::COMMANDS);
+        $this->load(data_get($config, 'path.directs', app()->path('Discord/Directs')), self::DIRECTS);
     }
 
     /**
@@ -116,7 +116,7 @@ class DiscordManager implements Factory
             $command = $namespace.str_replace(
                     ['/', '.php'],
                     ['\\', ''],
-                    Str::after($command->getPathname(), app_path().DIRECTORY_SEPARATOR)
+                    Str::after($command->getPathname(), app()->path().DIRECTORY_SEPARATOR)
                 );
 
             $this->add($command, $type);

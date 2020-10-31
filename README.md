@@ -8,7 +8,7 @@
 - https://github.com/kawax/arty
 
 ## Requirements
-- PHP >= 7.2
+- PHP >= 7.3
 - Laravel >= 6.0 or other illuminate base project
 
 ## Installation
