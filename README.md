@@ -20,6 +20,7 @@ composer require revolution/discord-manager
 ### config/services.php
 ```php
 use CharlotteDunois\Yasmin\WebSocket\Intents;
+use Discord\WebSockets\Event;
 
 return [
     'discord' => [
@@ -37,6 +38,12 @@ return [
                 'TYPING_START',
             ],
             'intents'           => array_sum(Intents::default()),
+        ],
+        'discord-php' => [
+            'disabledEvents' => [
+                Event::TYPING_START,
+            ],
+            'intents'        => array_sum(Intents::default()),
         ],
     ],
 ];

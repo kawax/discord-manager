@@ -3,6 +3,7 @@
 namespace Revolution\DiscordManager\Providers;
 
 use CharlotteDunois\Yasmin\Client as Yasmin;
+use Discord\Discord as DiscordPHP;
 use Illuminate\Support\ServiceProvider;
 use React\EventLoop\Factory as React;
 use RestCord\DiscordClient;
@@ -51,6 +52,12 @@ class DiscordManagerServiceProvider extends ServiceProvider
                 $this->app['config']->get('services.discord.yasmin', []),
                 React::create()
             );
+        });
+
+        $this->app->singleton(DiscordPHP::class, function () {
+            return new DiscordPHP(array_merge([
+                'token' => $this->app['config']->get('services.discord.token'),
+            ], $this->app['config']->get('services.discord.discord-php', [])));
         });
     }
 }

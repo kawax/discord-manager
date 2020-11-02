@@ -2,7 +2,7 @@
 
 namespace Revolution\DiscordManager;
 
-use CharlotteDunois\Yasmin\Models\Message;
+use Discord\Parts\Channel\Message;
 use Illuminate\Console\Parser;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -51,7 +51,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
+     * @param  Message  $message
      *
      * @return string
      */
@@ -61,7 +61,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
+     * @param  Message  $message
      *
      * @return string
      */
@@ -71,7 +71,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  \CharlotteDunois\Yasmin\Models\Message  $message
+     * @param  Message  $message
      * @param  string  $type
      *
      * @return string
@@ -79,7 +79,7 @@ class DiscordManager implements Factory
     protected function invoke(Message $message, $type = self::COMMANDS)
     {
         if (! Str::contains(data_get($message, 'content'), $this->prefix)) {
-            return '';
+            return ''; // @codeCoverageIgnore
         }
 
         [$command] = Parser::parse(Str::after(data_get($message, 'content'), $this->prefix));
@@ -131,7 +131,7 @@ class DiscordManager implements Factory
     {
         try {
             if ((new ReflectionClass($command))->isAbstract()) {
-                return;
+                return; // @codeCoverageIgnore
             }
 
             $cmd = app($command);

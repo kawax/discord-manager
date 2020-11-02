@@ -2,7 +2,7 @@
 
 namespace Tests\Discord\Commands;
 
-use CharlotteDunois\Yasmin\Models\Message;
+use Discord\Parts\Channel\Message;
 
 class HiddenCommand
 {

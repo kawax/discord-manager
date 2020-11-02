@@ -2,11 +2,12 @@
 
 namespace Tests;
 
-use CharlotteDunois\Yasmin\Models\Message;
+use Discord\Parts\Channel\Message;
 use Mockery as m;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
+use Revolution\DiscordManager\Facades\DiscordPHP;
 use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Facades\Yasmin;
 
@@ -128,5 +129,10 @@ class DiscordTest extends TestCase
         $reply = $manager->command($message);
 
         $this->assertSame('argv! test test', $reply);
+    }
+
+    public function testDiscordPHP()
+    {
+        $this->assertIsArray(DiscordPHP::__debugInfo());
     }
 }

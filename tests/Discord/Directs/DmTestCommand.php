@@ -2,7 +2,7 @@
 
 namespace Tests\Discord\Directs;
 
-use CharlotteDunois\Yasmin\Models\Message;
+use Discord\Parts\Channel\Message;
 
 class DmTestCommand
 {

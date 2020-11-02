@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use CharlotteDunois\Yasmin\WebSocket\Intents;
+use Discord\WebSockets\Event;
 use Revolution\DiscordManager\Providers\DiscordManagerServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -34,19 +36,25 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('services.discord', [
-            'prefix'    => '/',
-            'not_found' => 'Command Not Found!',
-            'path'      => [
+            'prefix'     => '/',
+            'not_found'  => 'Command Not Found!',
+            'path'       => [
                 'commands' => __DIR__.'/Discord/Commands',
                 'directs'  => __DIR__.'/Discord/Directs',
             ],
-            'token'     => 'test',
-            'channel'   => '1',
-            'bot'       => '2',
-            'yasmin'    => [
+            'token'      => 'test',
+            'channel'    => '1',
+            'bot'        => '2',
+            'yasmin'     => [
                 'ws.disabledEvents' => [
                     'TYPING_START',
                 ],
+            ],
+            'discord-php' => [
+                'disabledEvents' => [
+                    Event::TYPING_START,
+                ],
+                'intents'        => array_sum(Intents::default()),
             ],
         ]);
     }
