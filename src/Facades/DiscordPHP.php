@@ -2,8 +2,8 @@
 
 namespace Revolution\DiscordManager\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use Discord\Discord;
+use Illuminate\Support\Facades\Facade;
 
 class DiscordPHP extends Facade
 {
