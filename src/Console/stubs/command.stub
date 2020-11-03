@@ -14,10 +14,10 @@ class DummyClass
     /**
      * @param  Message  $message
      *
-     * @return string
+     * @return void
      */
     public function __invoke(Message $message)
     {
-        return 'Hi! '.$message->author->username;
+        $message->reply('Hi! '.$message->author->username);
     }
 }

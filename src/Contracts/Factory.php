@@ -9,14 +9,14 @@ interface Factory
     /**
      * @param  Message  $message
      *
-     * @return string
+     * @return void
      */
-    public function command(Message $message);
+    public function command(Message $message): void;
 
     /**
      * @param  Message  $message
      *
-     * @return string
+     * @return void
      */
-    public function direct(Message $message);
+    public function direct(Message $message): void;
 }

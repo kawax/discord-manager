@@ -55,6 +55,7 @@ class DiscordManager implements Factory
      * @param  Message  $message
      *
      * @return void
+     * @throws CommandNotFountException
      */
     public function command(Message $message): void
     {
@@ -65,6 +66,7 @@ class DiscordManager implements Factory
      * @param  Message  $message
      *
      * @return void
+     * @throws CommandNotFountException
      */
     public function direct(Message $message): void
     {
