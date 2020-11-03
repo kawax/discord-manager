@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Facade;
 use Revolution\DiscordManager\Contracts\Factory;
 
 /**
- * @method static string command(\CharlotteDunois\Yasmin\Models\Message $message)
- * @method static string direct(\CharlotteDunois\Yasmin\Models\Message $message)
+ * @method static string command(\Discord\Parts\Channel\Message $message)
+ * @method static string direct(\Discord\Parts\Channel\Message $message)
  *
  * @see \Revolution\DiscordManager\DiscordManager
  */
