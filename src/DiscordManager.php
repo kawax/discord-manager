@@ -91,6 +91,7 @@ class DiscordManager implements Factory
         if ($type === self::COMMANDS) {
             if (Arr::has($this->commands, $command) && is_callable(($this->commands)[$command])) {
                 call_user_func(($this->commands)[$command], $message);
+
                 return;
             }
         }
@@ -98,6 +99,7 @@ class DiscordManager implements Factory
         if ($type === self::DIRECTS) {
             if (Arr::has($this->directs, $command) && is_callable(($this->directs)[$command])) {
                 call_user_func(($this->directs)[$command], $message);
+
                 return;
             }
         }
