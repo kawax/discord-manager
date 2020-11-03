@@ -88,7 +88,7 @@ class DiscordManager implements Factory
 
         [$command] = Parser::parse(Str::after(data_get($message, 'content'), $this->prefix));
 
-        if (Arr::has($this->$type, $command) and is_callable([($this->$type)[$command], '__invoke'])) {
+        if (Arr::has($this->$type, $command) and is_callable(($this->$type)[$command])) {
             ($this->$type)[$command]($message);
         } else {
             throw new CommandNotFountException($this->not_found);
