@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use Revolution\DiscordManager\Contracts\Factory;
+use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Symfony\Component\Finder\Finder;
 
 class DiscordManager implements Factory
@@ -53,41 +54,42 @@ class DiscordManager implements Factory
     /**
      * @param  Message  $message
      *
-     * @return string
+     * @return void
      */
-    public function command(Message $message)
+    public function command(Message $message): void
     {
-        return $this->invoke($message, self::COMMANDS);
+        $this->invoke($message, self::COMMANDS);
     }
 
     /**
      * @param  Message  $message
      *
-     * @return string
+     * @return void
      */
-    public function direct(Message $message)
+    public function direct(Message $message): void
     {
-        return $this->invoke($message, self::DIRECTS);
+        $this->invoke($message, self::DIRECTS);
     }
 
     /**
      * @param  Message  $message
      * @param  string  $type
      *
-     * @return string
+     * @return void
+     * @throws CommandNotFountException
      */
-    protected function invoke(Message $message, $type = self::COMMANDS)
+    protected function invoke(Message $message, $type = self::COMMANDS): void
     {
         if (! Str::contains(data_get($message, 'content'), $this->prefix)) {
-            return ''; // @codeCoverageIgnore
+            return; // @codeCoverageIgnore
         }
 
         [$command] = Parser::parse(Str::after(data_get($message, 'content'), $this->prefix));
 
         if (Arr::has($this->$type, $command) and is_callable([($this->$type)[$command], '__invoke'])) {
-            return ($this->$type)[$command]($message);
+            ($this->$type)[$command]($message);
         } else {
-            return $this->not_found;
+            throw new CommandNotFountException($this->not_found);
         }
     }
 

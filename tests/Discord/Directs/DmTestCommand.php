@@ -18,6 +18,6 @@ class DmTestCommand
      */
     public function __invoke(Message $message)
     {
-        return 'dm test! '.$message->author->username;
+        $message->reply('dm test! '.$message->author->username);
     }
 }

@@ -6,6 +6,7 @@ use Discord\Parts\Channel\Message;
 use Mockery as m;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\DiscordPHP;
 use Revolution\DiscordManager\Facades\RestCord;
@@ -37,23 +38,23 @@ class DiscordTest extends TestCase
             'username' => 'test_user',
         ];
         $message->content = '/test';
+        $message->shouldReceive('reply')->once()->with('test! test_user');
 
-        $reply = $manager->command($message);
-
-        $this->assertSame('test! test_user', $reply);
+        $manager->command($message);
     }
 
     public function testHiddenCommand()
     {
+        $this->expectException(CommandNotFountException::class);
+
         $manager = app(Factory::class);
         $manager->add('Tests\Discord\Commands\HiddenCommand', $manager::COMMANDS);
 
         $message = m::mock('overload:'.Message::class);
         $message->content = '/hide';
+        $message->shouldReceive('reply')->never();
 
-        $reply = $manager->command($message);
-
-        $this->assertSame('Command Not Found!', $reply);
+        $manager->command($message);
     }
 
     public function testDmCommand()
@@ -66,20 +67,32 @@ class DiscordTest extends TestCase
             'username' => 'test_user',
         ];
         $message->content = '/test';
+        $message->shouldReceive('reply')->once()->with('dm test! test_user');
 
-        $reply = $manager->direct($message);
-
-        $this->assertSame('dm test! test_user', $reply);
+        $manager->direct($message);
     }
 
     public function testCommandNotFound()
     {
+        $this->expectException(CommandNotFountException::class);
+
         $message = m::mock('overload:'.Message::class);
         $message->content = '/test';
+        $message->shouldReceive('reply')->never();
 
-        $reply = DiscordManagerFacade::command($message);
+        DiscordManagerFacade::command($message);
+    }
 
-        $this->assertSame('Command Not Found!', $reply);
+    public function testArgvCommand()
+    {
+        $manager = app(Factory::class);
+        $manager->add('Tests\Discord\Commands\ArgvCommand', $manager::COMMANDS);
+
+        $message = m::mock('overload:'.Message::class);
+        $message->content = '/argv test --option=test';
+        $message->shouldReceive('reply')->once()->with('argv! test test');
+
+        $manager->command($message);
     }
 
     public function testYasmin()
@@ -116,19 +129,6 @@ class DiscordTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
 
         $channel = RestCord::channels();
-    }
-
-    public function testArgvCommand()
-    {
-        $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\ArgvCommand', $manager::COMMANDS);
-
-        $message = m::mock('overload:'.Message::class);
-        $message->content = '/argv test --option=test';
-
-        $reply = $manager->command($message);
-
-        $this->assertSame('argv! test test', $reply);
     }
 
     public function testDiscordPHP()

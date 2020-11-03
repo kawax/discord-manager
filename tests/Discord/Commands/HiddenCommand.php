@@ -23,6 +23,6 @@ class HiddenCommand
      */
     public function __invoke(Message $message)
     {
-        return 'hide!';
+        $message->reply('hide!');
     }
 }

@@ -18,11 +18,12 @@ class ArgvCommand
      * @param  Message  $message
      *
      * @return string
+     * @throws \Exception
      */
     public function __invoke(Message $message)
     {
         $input = $this->input(explode(' ', $message->content));
 
-        return 'argv! '.$input->getArgument('test').' '.$input->getOption('option');
+        $message->reply('argv! '.$input->getArgument('test').' '.$input->getOption('option'));
     }
 }
