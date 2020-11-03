@@ -3,7 +3,7 @@
 ## v2.0
 Using `team-reflex/discord-php` instead Yasmin.
 
-### Changed to use `Discord\PartsChannelAddressMessage` in all Discord commands.
+### Changed to use `Discord\Parts\Channel\Message` in all Discord commands.
 Reply is executed in the command.
 
 ```php
