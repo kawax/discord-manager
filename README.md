@@ -19,7 +19,7 @@ composer require revolution/discord-manager
 
 ### config/services.php
 ```php
-use CharlotteDunois\Yasmin\WebSocket\Intents;
+use Revolution\DiscordManager\Support\Intents;
 use Discord\WebSockets\Event;
 
 return [
@@ -33,12 +33,6 @@ return [
         'token'     => env('DISCORD_BOT_TOKEN'),
         'channel'   => env('DISCORD_CHANNEL'),
         'bot'       => env('DISCORD_BOT'),
-        'yasmin'    => [
-            'ws.disabledEvents' => [
-                'TYPING_START',
-            ],
-            'intents'           => array_sum(Intents::default()),
-        ],
         'discord-php' => [
             'disabledEvents' => [
                 Event::TYPING_START,
@@ -56,11 +50,41 @@ DISCORD_CHANNEL=
 DISCORD_BOT=
 ```
 
-## make command
+## make Discord command
 ```
 php artisan make:discord:command NewChannelCommand
 php artisan make:discord:direct NewDmCommand
 ```
+
+## DiscordPHP
+```php
+use Revolution\DiscordManager\Facades\DiscordPHP;
+use Discord\Parts\Channel\Message;
+
+
+        DiscordPHP::on('ready', function (Discord $discord) {
+            $this->info('Logged in as '.$discord->user->username);
+
+            $discord->on('message', function (Message $message) {
+                $this->info("Recieved a message from {$message->author->username}: {$message->content}");
+            });
+        });
+
+        DiscordPHP::run();
+```
+
+## RestCord
+
+```php
+use Revolution\DiscordManager\Facades\RestCord;
+
+RestCord::channel()->createMessage([
+  'channel.id' => 0,
+  'content' => 'test',
+]);
+```
+
+https://github.com/restcord/restcord
 
 ## Yasmin
 ```php
@@ -82,19 +106,6 @@ Yasmin::getLoop()->run();
 
 - https://github.com/CharlotteDunois/Yasmin
 - https://github.com/laravel-discord/Yasmin (forked)
-
-## RestCord
-
-```php
-use Revolution\DiscordManager\Facades\RestCord;
-
-RestCord::channel()->createMessage([
-  'channel.id' => 0,
-  'content' => 'test',
-]);
-```
-
-https://github.com/restcord/restcord
 
 ## LICENSE
 MIT  

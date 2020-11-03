@@ -11,6 +11,7 @@ use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\DiscordPHP;
 use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Facades\Yasmin;
+use Revolution\DiscordManager\Support\Intents;
 
 class DiscordTest extends TestCase
 {
@@ -134,5 +135,16 @@ class DiscordTest extends TestCase
     public function testDiscordPHP()
     {
         $this->assertIsArray(DiscordPHP::__debugInfo());
+    }
+
+    public function testIntents()
+    {
+        $this->assertIsArray(Intents::all());
+        $this->assertIsArray(Intents::default());
+        $this->assertArrayHasKey('GUILD_MESSAGES', Intents::only(['GUILD_MESSAGES']));
+        $this->assertArrayNotHasKey('GUILD_PRESENCES', Intents::except(['GUILD_PRESENCES']));
+        $this->assertSame('11011011111101', decbin(Intents::bit(Intents::default())));
+        $this->assertSame('100000000000000', decbin(Intents::bit(Intents::only(['DIRECT_MESSAGE_TYPING']))));
+        $this->assertSame('111111111111111', decbin(array_sum(Intents::all())));
     }
 }

@@ -2,14 +2,12 @@
 
 namespace Tests;
 
-use CharlotteDunois\Yasmin\WebSocket\Intents;
 use Discord\WebSockets\Event;
 use Revolution\DiscordManager\Providers\DiscordManagerServiceProvider;
+use Revolution\DiscordManager\Support\Intents;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-
     protected function getPackageProviders($app)
     {
         return [
@@ -23,6 +21,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'DiscordManager' => \Revolution\DiscordManager\Facades\DiscordManager::class,
             'Yasmin'         => \Revolution\DiscordManager\Facades\Yasmin::class,
             'RestCord'       => \Revolution\DiscordManager\Facades\RestCord::class,
+            'DiscordPHP'       => \Revolution\DiscordManager\Facades\DiscordPHP::class,
         ];
     }
 

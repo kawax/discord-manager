@@ -4,12 +4,14 @@ namespace Revolution\DiscordManager\Providers;
 
 use CharlotteDunois\Yasmin\Client as Yasmin;
 use Discord\Discord as DiscordPHP;
+use Discord\WebSockets\Event;
 use Illuminate\Support\ServiceProvider;
 use React\EventLoop\Factory as React;
 use RestCord\DiscordClient;
 use Revolution\DiscordManager\Console;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\Support\Intents;
 
 class DiscordManagerServiceProvider extends ServiceProvider
 {
@@ -49,7 +51,12 @@ class DiscordManagerServiceProvider extends ServiceProvider
 
         $this->app->singleton(Yasmin::class, function () {
             return new Yasmin(
-                $this->app['config']->get('services.discord.yasmin', []),
+                $this->app['config']->get('services.discord.yasmin', [
+                    'ws.disabledEvents' => [
+                        'TYPING_START',
+                    ],
+                    'intents'           => array_sum(Intents::default()),
+                ]),
                 React::create()
             );
         });
@@ -57,7 +64,12 @@ class DiscordManagerServiceProvider extends ServiceProvider
         $this->app->singleton(DiscordPHP::class, function () {
             return new DiscordPHP(array_merge([
                 'token' => $this->app['config']->get('services.discord.token'),
-            ], $this->app['config']->get('services.discord.discord-php', [])));
+            ], $this->app['config']->get('services.discord.discord-php', [
+                'disabledEvents' => [
+                    Event::TYPING_START,
+                ],
+                'intents'        => array_sum(Intents::default()),
+            ])));
         });
     }
 }

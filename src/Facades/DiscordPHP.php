@@ -5,6 +5,10 @@ namespace Revolution\DiscordManager\Facades;
 use Discord\Discord;
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @method static on($event, callable $listener)
+ * @method static run()
+ */
 class DiscordPHP extends Facade
 {
     /**
