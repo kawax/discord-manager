@@ -89,16 +89,16 @@ class DiscordManager implements Factory
         [$command] = Parser::parse(Str::after($message->content, $this->prefix));
 
         if ($type === self::COMMANDS) {
-            if (Arr::has($this->commands, $command) && is_callable(($this->commands)[$command])) {
-                call_user_func(($this->commands)[$command], $message);
+            if (Arr::has($this->commands, $command) && is_callable($cmd = $this->commands[$command])) {
+                $cmd($message);
 
                 return;
             }
         }
 
         if ($type === self::DIRECTS) {
-            if (Arr::has($this->directs, $command) && is_callable(($this->directs)[$command])) {
-                call_user_func(($this->directs)[$command], $message);
+            if (Arr::has($this->directs, $command) && is_callable($cmd = $this->directs[$command])) {
+                $cmd($message);
 
                 return;
             }
