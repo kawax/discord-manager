@@ -88,11 +88,21 @@ class DiscordManager implements Factory
 
         [$command] = Parser::parse(Str::after($message->content, $this->prefix));
 
-        if (Arr::has($this->$type, $command) and is_callable(($this->$type)[$command])) {
-            ($this->$type)[$command]($message);
-        } else {
-            throw new CommandNotFountException($this->not_found);
+        if ($type === self::COMMANDS) {
+            if (Arr::has($this->commands, $command) && is_callable(($this->commands)[$command])) {
+                call_user_func(($this->commands)[$command], $message);
+                return;
+            }
         }
+
+        if ($type === self::DIRECTS) {
+            if (Arr::has($this->directs, $command) && is_callable(($this->directs)[$command])) {
+                call_user_func(($this->directs)[$command], $message);
+                return;
+            }
+        }
+
+        throw new CommandNotFountException($this->not_found);
     }
 
     /**
@@ -148,7 +158,9 @@ class DiscordManager implements Factory
 
             if ($type === self::COMMANDS) {
                 $this->commands[$name] = $cmd;
-            } elseif ($type === self::DIRECTS) {
+            }
+
+            if ($type === self::DIRECTS) {
                 $this->directs[$name] = $cmd;
             }
         } catch (\ReflectionException $e) {
