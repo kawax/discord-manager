@@ -74,6 +74,8 @@ DiscordPHP::on('ready', function (Discord $discord) {
 DiscordPHP::run();
 ```
 
+https://github.com/teamreflex/DiscordPHP
+
 ## RestCord
 
 ```php
