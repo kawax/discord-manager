@@ -58,19 +58,20 @@ php artisan make:discord:direct NewDmCommand
 
 ## DiscordPHP
 ```php
-use Revolution\DiscordManager\Facades\DiscordPHP;
+use Discord\Discord
 use Discord\Parts\Channel\Message;
+use Revolution\DiscordManager\Facades\DiscordPHP;
 
 
-        DiscordPHP::on('ready', function (Discord $discord) {
-            $this->info('Logged in as '.$discord->user->username);
+DiscordPHP::on('ready', function (Discord $discord) {
+    $this->info('Logged in as '.$discord->user->username);
 
-            $discord->on('message', function (Message $message) {
-                $this->info("Recieved a message from {$message->author->username}: {$message->content}");
-            });
-        });
+    $discord->on('message', function (Message $message) {
+        $this->info("Recieved a message from {$message->author->username}: {$message->content}");
+    });
+});
 
-        DiscordPHP::run();
+DiscordPHP::run();
 ```
 
 ## RestCord
