@@ -32,20 +32,21 @@ class Yasmin extends Facade
         return Client::class;
     }
 
+    /**
+     * @param  string  $method
+     * @param  array  $args
+     * @return mixed
+     */
     public static function __callStatic($method, $args)
     {
         if (isset(static::getFacadeRoot()->$method)) {
             return static::getFacadeRoot()->$method;
         } elseif (is_callable([static::getFacadeRoot(), $method])) {
-            return parent::__callStatic($method, $args);
+            return parent::__callStatic($method, $args); // @codeCoverageIgnore
         }
 
         throw new \BadMethodCallException(
-            sprintf(
-                'Method %s::%s does not exist.',
-                static::class,
-                $method
-            )
+            sprintf('Method %s::%s does not exist.', static::class, $method) // @codeCoverageIgnore
         );
     }
 }

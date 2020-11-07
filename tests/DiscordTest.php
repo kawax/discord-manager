@@ -141,10 +141,10 @@ class DiscordTest extends TestCase
     {
         $this->assertIsArray(Intents::all());
         $this->assertIsArray(Intents::default());
-        $this->assertArrayHasKey('GUILD_MESSAGES', Intents::only(['GUILD_MESSAGES']));
-        $this->assertArrayNotHasKey('GUILD_PRESENCES', Intents::except(['GUILD_PRESENCES']));
+        $this->assertArrayHasKey(Intents::GUILD_MESSAGES, Intents::only([Intents::GUILD_MESSAGES]));
+        $this->assertArrayNotHasKey(Intents::GUILD_PRESENCES, Intents::except([Intents::GUILD_PRESENCES]));
         $this->assertSame('11011011111101', decbin(Intents::bit(Intents::default())));
-        $this->assertSame('100000000000000', decbin(Intents::bit(Intents::only(['DIRECT_MESSAGE_TYPING']))));
+        $this->assertSame('100000000000000', decbin(Intents::bit(Intents::only([Intents::DIRECT_MESSAGE_TYPING]))));
         $this->assertSame('111111111111111', decbin(array_sum(Intents::all())));
     }
 }
