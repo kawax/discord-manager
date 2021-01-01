@@ -1,5 +1,12 @@
 # UPGRADING
 
+## v2.1
+If you want to use Yasmin again, you can install it separately.
+
+```
+composer require laravel-discord/yasmin
+```
+
 ## v2.0
 Using `team-reflex/discord-php` instead Yasmin.
 

@@ -96,6 +96,9 @@ class DiscordTest extends TestCase
         $manager->command($message);
     }
 
+    /**
+     * @requires function Yasmin::loop
+     */
     public function testYasmin()
     {
         $loop = Yasmin::loop();
@@ -103,6 +106,9 @@ class DiscordTest extends TestCase
         $this->assertNotNull($loop);
     }
 
+    /**
+     * @requires function Yasmin::loop
+     */
     public function testYasminOn()
     {
         $this->expectNotToPerformAssertions();
@@ -111,6 +117,9 @@ class DiscordTest extends TestCase
         });
     }
 
+    /**
+     * @requires function Yasmin::loop
+     */
     public function testYasminFail()
     {
         $this->expectException(\BadMethodCallException::class);

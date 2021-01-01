@@ -49,17 +49,21 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ]);
         });
 
-        $this->app->singleton(Yasmin::class, function () {
-            return new Yasmin(
-                $this->app['config']->get('services.discord.yasmin', [
-                    'ws.disabledEvents' => [
-                        'TYPING_START',
-                    ],
-                    'intents'           => array_sum(Intents::default()),
-                ]),
-                React::create()
-            );
-        });
+        // @codeCoverageIgnoreStart
+        if (class_exists(Yasmin::class)) {
+            $this->app->singleton(Yasmin::class, function () {
+                return new Yasmin(
+                    $this->app['config']->get('services.discord.yasmin', [
+                        'ws.disabledEvents' => [
+                            'TYPING_START',
+                        ],
+                        'intents'           => array_sum(Intents::default()),
+                    ]),
+                    React::create()
+                );
+            });
+        }
+        // @codeCoverageIgnoreEnd
 
         $this->app->singleton(DiscordPHP::class, function () {
             return new DiscordPHP(array_merge([

@@ -90,6 +90,11 @@ RestCord::channel()->createMessage([
 https://github.com/restcord/restcord
 
 ## Yasmin
+Installation required.
+```
+composer require laravel-discord/yasmin
+```
+
 ```php
 use Revolution\DiscordManager\Facades\Yasmin;
 use CharlotteDunois\Yasmin\Models\Message;

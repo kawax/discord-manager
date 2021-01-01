@@ -19,6 +19,8 @@ use React\Promise\ExtendedPromiseInterface;
  * @method static removeAllListeners($event = null)
  *
  * @see \CharlotteDunois\Yasmin\Client
+ *
+ * @codeCoverageIgnore
  */
 class Yasmin extends Facade
 {
