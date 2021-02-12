@@ -1,5 +1,6 @@
 # Discord Manager
 
+[![packagist](https://badgen.net/packagist/v/revolution/discord-manager)](https://packagist.org/packages/revolution/discord-manager)
 [![Build Status](https://travis-ci.com/kawax/discord-manager.svg?branch=master)](https://travis-ci.com/kawax/discord-manager)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27e52e9ba3df10623fae/maintainability)](https://codeclimate.com/github/kawax/discord-manager/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/27e52e9ba3df10623fae/test_coverage)](https://codeclimate.com/github/kawax/discord-manager/test_coverage)
