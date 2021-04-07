@@ -20,6 +20,8 @@ use React\Promise\ExtendedPromiseInterface;
  *
  * @see \CharlotteDunois\Yasmin\Client
  *
+ * @deprecated
+ *
  * @codeCoverageIgnore
  */
 class Yasmin extends Facade

@@ -37,23 +37,23 @@ class DiscordManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Factory::class, function () {
+        $this->app->singleton(Factory::class, function ($app) {
             return new DiscordManager(
-                $this->app['config']->get('services.discord')
+                $app['config']->get('services.discord')
             );
         });
 
-        $this->app->singleton(DiscordClient::class, function () {
+        $this->app->singleton(DiscordClient::class, function ($app) {
             return new DiscordClient([
-                'token' => $this->app['config']->get('services.discord.token'),
+                'token' => $app['config']->get('services.discord.token'),
             ]);
         });
 
         // @codeCoverageIgnoreStart
         if (class_exists(Yasmin::class)) {
-            $this->app->singleton(Yasmin::class, function () {
+            $this->app->singleton(Yasmin::class, function ($app) {
                 return new Yasmin(
-                    $this->app['config']->get('services.discord.yasmin', [
+                    $app['config']->get('services.discord.yasmin', [
                         'ws.disabledEvents' => [
                             'TYPING_START',
                         ],
@@ -65,10 +65,10 @@ class DiscordManagerServiceProvider extends ServiceProvider
         }
         // @codeCoverageIgnoreEnd
 
-        $this->app->singleton(DiscordPHP::class, function () {
+        $this->app->singleton(DiscordPHP::class, function ($app) {
             return new DiscordPHP(array_merge([
-                'token' => $this->app['config']->get('services.discord.token'),
-            ], $this->app['config']->get('services.discord.discord-php', [
+                'token' => $app['config']->get('services.discord.token'),
+            ], $app['config']->get('services.discord.discord-php', [
                 'disabledEvents' => [
                     Event::TYPING_START,
                 ],
