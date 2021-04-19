@@ -26,7 +26,6 @@ class ArgvCommand
 
         $message->reply('argv! '.$input->getArgument('test').' '.$input->getOption('option'))
             ->done(function (Message $message) {
-
             });
     }
 }
