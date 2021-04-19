@@ -1,5 +1,17 @@
 # UPGRADING
 
+## v3.0
+- Delete Yasmin
+- Update DiscordPHP v6 https://github.com/discord-php/DiscordPHP/blob/master/V6_CONVERSION.md
+- Update all $message->reply()
+
+```php
+$message->reply('test')
+        ->done(function ($message) {
+        });
+```
+
+
 ## v2.1
 If you want to use Yasmin again, you can install it separately.
 

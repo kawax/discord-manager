@@ -9,7 +9,7 @@
 - https://github.com/kawax/arty
 
 ## Requirements
-- PHP >= 7.3
+- PHP >= 7.4
 - Laravel >= 6.0 or other illuminate base project
 
 ## Installation
@@ -59,7 +59,7 @@ php artisan make:discord:direct NewDmCommand
 
 ## DiscordPHP
 ```php
-use Discord\Discord
+use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Revolution\DiscordManager\Facades\DiscordPHP;
 
@@ -90,32 +90,5 @@ RestCord::channel()->createMessage([
 
 https://github.com/restcord/restcord
 
-## Yasmin
-Installation required.
-```
-composer require laravel-discord/yasmin
-```
-
-```php
-use Revolution\DiscordManager\Facades\Yasmin;
-use CharlotteDunois\Yasmin\Models\Message;
-
-
-Yasmin::on('ready', function () {
-    $this->info(Yasmin::user()->tag);
-});
-
-Yasmin::on('message', function (Message $message) {
-
-});
-
-Yasmin::login('token');
-Yasmin::getLoop()->run();
-```
-
-- https://github.com/CharlotteDunois/Yasmin
-- https://github.com/laravel-discord/Yasmin (forked)
-
 ## LICENSE
 MIT  
-Copyright kawax

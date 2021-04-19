@@ -10,7 +10,6 @@ use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\DiscordPHP;
 use Revolution\DiscordManager\Facades\RestCord;
-use Revolution\DiscordManager\Facades\Yasmin;
 use Revolution\DiscordManager\Support\Intents;
 
 class DiscordTest extends TestCase
@@ -39,7 +38,7 @@ class DiscordTest extends TestCase
             'username' => 'test_user',
         ];
         $message->content = '/test';
-        $message->shouldReceive('reply')->once()->with('test! test_user');
+        $message->shouldReceive('reply->done')->once();
 
         $manager->command($message);
     }
@@ -68,7 +67,7 @@ class DiscordTest extends TestCase
             'username' => 'test_user',
         ];
         $message->content = '/test';
-        $message->shouldReceive('reply')->once()->with('dm test! test_user');
+        $message->shouldReceive('reply->done')->once();
 
         $manager->direct($message);
     }
@@ -91,40 +90,9 @@ class DiscordTest extends TestCase
 
         $message = m::mock('overload:'.Message::class);
         $message->content = '/argv test --option=test';
-        $message->shouldReceive('reply')->once()->with('argv! test test');
+        $message->shouldReceive('reply->done')->once();
 
         $manager->command($message);
-    }
-
-    /**
-     * @requires function Yasmin::loop
-     */
-    public function testYasmin()
-    {
-        $loop = Yasmin::loop();
-
-        $this->assertNotNull($loop);
-    }
-
-    /**
-     * @requires function Yasmin::loop
-     */
-    public function testYasminOn()
-    {
-        $this->expectNotToPerformAssertions();
-
-        Yasmin::on('message', function () {
-        });
-    }
-
-    /**
-     * @requires function Yasmin::loop
-     */
-    public function testYasminFail()
-    {
-        $this->expectException(\BadMethodCallException::class);
-
-        $loop = Yasmin::loops();
     }
 
     public function testRestCord()

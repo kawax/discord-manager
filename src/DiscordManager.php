@@ -17,32 +17,20 @@ class DiscordManager implements Factory
 
     public const DIRECTS = 'directs';
 
-    /**
-     * @var string
-     */
-    protected $prefix;
+    protected string $prefix;
 
-    /**
-     * @var string
-     */
-    protected $not_found;
+    protected string $not_found;
 
-    /**
-     * @var array
-     */
-    protected $commands = [];
+    protected array $commands = [];
 
-    /**
-     * @var array
-     */
-    protected $directs = [];
+    protected array $directs = [];
 
     /**
      * DiscordManager constructor.
      *
      * @param  array  $config
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $this->prefix = data_get($config, 'prefix', '/');
         $this->not_found = data_get($config, 'not_found', 'Command Not Found!');

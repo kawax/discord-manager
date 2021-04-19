@@ -24,6 +24,9 @@ class ArgvCommand
     {
         $input = $this->input(explode(' ', $message->content));
 
-        $message->reply('argv! '.$input->getArgument('test').' '.$input->getOption('option'));
+        $message->reply('argv! '.$input->getArgument('test').' '.$input->getOption('option'))
+            ->done(function (Message $message) {
+
+            });
     }
 }
