@@ -20,7 +20,6 @@ class DmTestCommand
     {
         $message->reply('dm test! '.$message->author->username)
             ->done(function (Message $message) {
-
             });
     }
 }

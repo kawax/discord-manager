@@ -25,7 +25,6 @@ class HiddenCommand
     {
         $message->reply('hide!')
             ->done(function (Message $message) {
-
             });
     }
 }

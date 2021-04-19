@@ -20,7 +20,6 @@ class TestCommand
     {
         $message->reply('test! '.$message->author->username)
             ->done(function (Message $message) {
-
             });
     }
 }
