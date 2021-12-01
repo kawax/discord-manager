@@ -16,8 +16,8 @@ class ArgvCommand
 
     /**
      * @param  Message  $message
-     *
      * @return string
+     *
      * @throws \Exception
      */
     public function __invoke(Message $message)

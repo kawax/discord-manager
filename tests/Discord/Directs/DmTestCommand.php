@@ -13,7 +13,6 @@ class DmTestCommand
 
     /**
      * @param  Message  $message
-     *
      * @return string
      */
     public function __invoke(Message $message)

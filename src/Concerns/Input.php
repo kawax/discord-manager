@@ -11,7 +11,6 @@ trait Input
 {
     /**
      * @param  array  $argv
-     *
      * @return InputInterface
      */
     public function input(array $argv): InputInterface
