@@ -9,11 +9,11 @@ class TestCommand
     /**
      * @var string
      */
-    public $command = 'test';
+    public string $command = 'test';
 
     /**
      * @param  Message  $message
-     * @return string
+     * @return void
      */
     public function __invoke(Message $message)
     {

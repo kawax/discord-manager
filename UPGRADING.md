@@ -1,5 +1,15 @@
 # UPGRADING
 
+## v4.0
+- Require Laravel 9.x
+- Require PHP8.0+
+- Update DiscordPHP v7 https://github.com/discord-php/DiscordPHP/blob/master/V7_CONVERSION.md
+- Add `laravel-notification-channels/discord`
+
+```
+composer require laravel-notification-channels/discord
+```
+
 ## v3.0
 - Delete Yasmin
 - Update DiscordPHP v6 https://github.com/discord-php/DiscordPHP/blob/master/V6_CONVERSION.md

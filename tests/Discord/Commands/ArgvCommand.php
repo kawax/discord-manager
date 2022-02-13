@@ -12,11 +12,11 @@ class ArgvCommand
     /**
      * @var string
      */
-    public $command = 'argv {test} {--option=}';
+    public string $command = 'argv {test} {--option=}';
 
     /**
      * @param  Message  $message
-     * @return string
+     * @return void
      *
      * @throws \Exception
      */

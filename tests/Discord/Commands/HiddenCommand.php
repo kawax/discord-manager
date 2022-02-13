@@ -9,16 +9,16 @@ class HiddenCommand
     /**
      * @var string
      */
-    public $command = 'hide';
+    public string $command = 'hide';
 
     /**
      * @var bool
      */
-    public $hidden = true;
+    public bool $hidden = true;
 
     /**
      * @param  Message  $message
-     * @return string
+     * @return void
      */
     public function __invoke(Message $message)
     {
