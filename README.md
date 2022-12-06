@@ -39,6 +39,8 @@ return [
         'channel'   => env('DISCORD_CHANNEL'),
         //APPLICATION ID
         'bot'       => env('DISCORD_BOT'),
+        //PUBLIC KEY
+        'public_key' => env('DISCORD_PUBLIC_KEY'),
         'discord-php' => [
             'disabledEvents' => [
                 Event::TYPING_START,

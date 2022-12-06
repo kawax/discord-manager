@@ -44,7 +44,7 @@ class ValidateSignature
             $request->getContent(),
             $request->header('X-Signature-Ed25519'),
             $request->header('X-Signature-Timestamp'),
-            config('services.discord.token')
+            config('services.discord.public_key')
         );
     }
 }

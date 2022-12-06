@@ -38,18 +38,25 @@ class RegisterCommand extends Command
      */
     public function handle()
     {
+        $this->info('Registering Guild Commands');
+
         collect(config('discord_commands.guild'))
             ->groupBy('guild_id')
             ->each(function ($commands, $guild_id) {
                 $app_id = config('services.discord.bot');
-                $this->info($guild_id);
+                $this->info('Guild : '.$guild_id);
+
                 $data = collect($commands)->except(['guild_id'])->toArray();
+
                 $response = Http::withHeaders([
                     'Authorization' => 'Bot '.config('services.discord.token')
-                ])->put("https://discord.com/api
-/v10/applications/$app_id/guilds/$guild_id/commands", $data);
+                ])->put("https://discord.com/api/v10/applications/$app_id/guilds/$guild_id/commands", $data);
 
-                $this->info($response->status());
+                if ($response->successful()) {
+                    $this->info('Succeeded.');
+                } else {
+                    $this->error('Failed : '.$response->json());
+                }
             });
     }
 }
