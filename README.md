@@ -37,6 +37,7 @@ return [
         ],
         'token'     => env('DISCORD_BOT_TOKEN'),
         'channel'   => env('DISCORD_CHANNEL'),
+        //APPLICATION ID
         'bot'       => env('DISCORD_BOT'),
         'discord-php' => [
             'disabledEvents' => [

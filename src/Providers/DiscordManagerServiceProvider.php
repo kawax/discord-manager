@@ -23,6 +23,11 @@ class DiscordManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/discord_commands.php',
+            'discord_commands'
+        );
+
         $this->app->singleton(Factory::class, function ($app) {
             return new DiscordManager(
                 config('services.discord')
@@ -58,8 +63,11 @@ class DiscordManagerServiceProvider extends ServiceProvider
             $this->commands([
                 Console\MakeCommand::class,
                 Console\MakeDirect::class,
+                Console\RegisterCommand::class,
             ]);
         }
+
+        $this->configurePublishing();
 
         $this->interactions();
     }
@@ -74,5 +82,22 @@ class DiscordManagerServiceProvider extends ServiceProvider
                       ->middleware(ValidateSignature::class)
                       ->uses(InteractionsWebhookController::class);
              });
+    }
+
+
+    /**
+     * Configure publishing for the package.
+     *
+     * @return void
+     */
+    protected function configurePublishing()
+    {
+        if (! $this->app->runningInConsole()) {
+            return; // @codeCoverageIgnore
+        }
+
+        $this->publishes([
+            __DIR__.'/../../config/discord_commands.php' => $this->app->configPath('discord_commands.php'),
+        ], 'discord-commands-config');
     }
 }
