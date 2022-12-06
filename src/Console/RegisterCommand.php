@@ -63,7 +63,7 @@ class RegisterCommand extends Command
                 if ($response->successful()) {
                     $this->info('Succeeded.');
                 } else {
-                    $this->error('Failed : '.$response->json());
+                    $this->error('Failed : '.$response->getContent());
                 }
             });
     }
@@ -81,7 +81,7 @@ class RegisterCommand extends Command
         if ($response->successful()) {
             $this->info('Succeeded.');
         } else {
-            $this->error('Failed : '.$response->json());
+            $this->error('Failed : '.$response->getContent());
         }
     }
 }
