@@ -22,11 +22,11 @@ class ValidateSignature
         info($request);
         info($request->headers);
 
-        if (! $request->hasHeader('HTTP_X_SIGNATURE_ED25519')) {
+        if (! $request->hasHeader('X-Signature-Ed25519')) {
             abort(401, 'Request does not contain signature');
         }
 
-        if (! $request->hasHeader('HTTP_X_SIGNATURE_TIMESTAMP')) {
+        if (! $request->hasHeader('X-Signature-Timestamp')) {
             abort(401, 'Request does not contain signature timestamp');
         }
 
@@ -47,8 +47,8 @@ class ValidateSignature
     {
         return Interaction::verifyKey(
             $request->getContent(),
-            $request->header('HTTP_X_SIGNATURE_ED25519'),
-            $request->header('HTTP_X_SIGNATURE_TIMESTAMP'),
+            $request->header('X-Signature-Ed25519'),
+            $request->header('X-Signature-Timestamp'),
             config('services.discord.token')
         );
     }
