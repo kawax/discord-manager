@@ -19,9 +19,6 @@ class ValidateSignature
      */
     public function handle(Request $request, Closure $next)
     {
-        info($request);
-        info($request->headers);
-
         if (! $request->hasHeader('X-Signature-Ed25519')) {
             abort(401, 'Request does not contain signature');
         }
@@ -35,8 +32,6 @@ class ValidateSignature
         }
 
         if ($request->json('type') === InteractionType::PING) {
-            info('pong');
-
             return response()->json(['type' => InteractionResponseType::PONG]);
         }
 
