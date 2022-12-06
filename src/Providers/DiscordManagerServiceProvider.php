@@ -66,7 +66,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
 
     protected function interactions()
     {
-        Route::middleware(config('services.discord.interactions.middleware'))
+        Route::middleware(config('services.discord.interactions.middleware', 'throttle'))
              ->domain(config('services.discord.interactions.domain'))
              ->group(function () {
                  Route::post(config('services.discord.interactions.path', 'discord/webhook'))

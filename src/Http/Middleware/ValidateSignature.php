@@ -37,7 +37,7 @@ class ValidateSignature
         if ($request->json('type') === InteractionType::PING) {
             info('pong');
 
-            return ['type' => InteractionResponseType::PONG];
+            return response()->json(['type' => InteractionResponseType::PONG]);
         }
 
         return $next($request); // @codeCoverageIgnore
