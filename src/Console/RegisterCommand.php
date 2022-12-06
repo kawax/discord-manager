@@ -49,9 +49,7 @@ class RegisterCommand extends Command
 
                 $data = collect($commands)->except(['guild_id'])->toArray();
 
-                $response = Http::withHeaders([
-                    'Authorization' => 'Bot '.config('services.discord.token')
-                ])->put("https://discord.com/api/v10/applications/$app_id/guilds/$guild_id/commands", $data);
+                $response = Http::discord()->put("/applications/$app_id/guilds/$guild_id/commands", $data);
 
                 if ($response->successful()) {
                     $this->info('Succeeded.');

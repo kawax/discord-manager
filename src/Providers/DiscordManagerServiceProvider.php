@@ -4,6 +4,8 @@ namespace Revolution\DiscordManager\Providers;
 
 use Discord\Discord as DiscordPHP;
 use Discord\WebSockets\Event;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use RestCord\DiscordClient;
@@ -75,6 +77,12 @@ class DiscordManagerServiceProvider extends ServiceProvider
                 Console\RegisterCommand::class,
             ]);
         }
+
+        Http::macro('discord', function (string $api_version = '10'): PendingRequest {
+            return Http::withHeaders([
+                'Authorization' => 'Bot '.config('services.discord.token')
+            ])->baseUrl('https://discord.com/api/v'.$api_version);
+        });
 
         $this->configurePublishing();
 
