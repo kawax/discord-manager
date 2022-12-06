@@ -19,6 +19,8 @@ class ValidateSignature
      */
     public function handle(Request $request, Closure $next)
     {
+        info($request);
+
         if (! $request->hasHeader('HTTP_X_SIGNATURE_ED25519')) {
             abort(401, 'Request does not contain signature');
         }
