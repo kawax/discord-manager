@@ -59,9 +59,7 @@ class RegisterCommand extends Command
 
                 $data = collect($commands)->except(['guild_id'])->toArray();
 
-                /**
-                 * @var Response $response
-                 */
+                /** @var Response $response */
                 $response = Http::discord()->put("/applications/$app_id/guilds/$guild_id/commands", $data);
 
                 if ($response->successful()) {
@@ -80,9 +78,7 @@ class RegisterCommand extends Command
 
         $data = config('discord_interactions.global');
 
-        /**
-         * @var Response $response
-         */
+        /** @var Response $response */
         $response = Http::discord()->put("/applications/$app_id/commands", $data);
 
         if ($response->successful()) {

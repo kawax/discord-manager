@@ -78,16 +78,16 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ]);
         }
 
-        Http::macro('discord', fn (int $api_version = 10): PendingRequest => Http::withHeaders([
+        Http::macro('discord', fn (int $version = 10): PendingRequest => Http::withHeaders([
             'Authorization' => 'Bot '.config('services.discord.token')
-        ])->baseUrl('https://discord.com/api/v'.$api_version));
+        ])->baseUrl('https://discord.com/api/v'.$version));
+
+        $this->interactionsRoute();
 
         $this->configurePublishing();
-
-        $this->interactions();
     }
 
-    protected function interactions()
+    protected function interactionsRoute()
     {
         Route::middleware(config('services.discord.interactions.middleware', 'throttle'))
              ->domain(config('services.discord.interactions.domain'))
