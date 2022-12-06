@@ -32,8 +32,8 @@ class DiscordManagerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/discord_commands.php',
-            'discord_commands'
+            __DIR__.'/../../config/discord_interactions.php',
+            'discord_interactions'
         );
 
         $this->app->singleton(Factory::class, function ($app) {
