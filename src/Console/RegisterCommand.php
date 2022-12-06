@@ -19,7 +19,7 @@ class RegisterCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Register Application Commands';
+    protected $description = 'Register Interactions Commands';
 
     /**
      * Create a new command instance.
@@ -43,8 +43,9 @@ class RegisterCommand extends Command
         collect(config('discord_commands.guild'))
             ->groupBy('guild_id')
             ->each(function ($commands, $guild_id) {
+                $this->line('Guild : '.$guild_id);
+
                 $app_id = config('services.discord.bot');
-                $this->info('Guild : '.$guild_id);
 
                 $data = collect($commands)->except(['guild_id'])->toArray();
 

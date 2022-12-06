@@ -9,9 +9,14 @@ use Illuminate\Support\ServiceProvider;
 use RestCord\DiscordClient;
 use Revolution\DiscordManager\Console;
 use Revolution\DiscordManager\Contracts\Factory;
+use Revolution\DiscordManager\Contracts\InteractionsEvent;
+use Revolution\DiscordManager\Contracts\InteractionsResponse;
 use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
+use Revolution\DiscordManager\Http\Response\DeferredResponse;
+use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
 
 class DiscordManagerServiceProvider extends ServiceProvider
@@ -50,6 +55,9 @@ class DiscordManagerServiceProvider extends ServiceProvider
                 'intents' => array_sum(Intents::default()),
             ])));
         });
+
+        $this->app->singleton(InteractionsResponse::class, DeferredResponse::class);
+        $this->app->singleton(InteractionsEvent::class, InteractionsWebhook::class);
     }
 
     /**
@@ -83,7 +91,6 @@ class DiscordManagerServiceProvider extends ServiceProvider
                       ->uses(InteractionsWebhookController::class);
              });
     }
-
 
     /**
      * Configure publishing for the package.

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Interactions Commands.
+ */
 return [
     'guild' => [
         [
