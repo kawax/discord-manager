@@ -42,7 +42,7 @@ class RegisterCommand extends Command
             ->groupBy('guild_id')
             ->each(function ($commands, $guild_id) {
                 $app_id = config('services.discord.bot');
-                $data = collect($commands)->except('guild_id')->toArray();
+                $data = collect($commands)->except(['guild_id'])->toArray();
                 $response = Http::withHeaders([
                     'Authorization' => 'Bot '.config('services.discord.token')
                 ])->put("https://discord.com/api
