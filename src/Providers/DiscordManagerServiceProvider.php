@@ -15,6 +15,7 @@ use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
+use Revolution\DiscordManager\Http\Response\ChannelMessageResponse;
 use Revolution\DiscordManager\Http\Response\DeferredResponse;
 use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
@@ -56,7 +57,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ])));
         });
 
-        $this->app->singleton(InteractionsResponse::class, DeferredResponse::class);
+        $this->app->singleton(InteractionsResponse::class, ChannelMessageResponse::class);
         $this->app->singleton(InteractionsEvent::class, InteractionsWebhook::class);
     }
 
