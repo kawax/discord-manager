@@ -12,14 +12,8 @@ class InteractionsWebhook implements InteractionsEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * 新しいイベントインスタンスの生成
-     *
-     * @param  Request  $request
-     */
     public function __construct(public Request $request)
     {
         //
-        info($this->request->getContent());
     }
 }

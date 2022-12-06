@@ -24,6 +24,9 @@
             "Revolution\\DiscordManager\\": "src/"
         }
     },
+    "suggest": {
+        "laravel-notification-channels/discord": "Laravel Notification."
+    },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

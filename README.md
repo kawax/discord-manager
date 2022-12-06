@@ -35,12 +35,13 @@ return [
             'commands' => app_path('Discord/Commands'),
             'directs'  => app_path('Discord/Directs'),
         ],
+        //Bot token
         'token'     => env('DISCORD_BOT_TOKEN'),
-        'channel'   => env('DISCORD_CHANNEL'),
         //APPLICATION ID
         'bot'       => env('DISCORD_BOT'),
         //PUBLIC KEY
         'public_key' => env('DISCORD_PUBLIC_KEY'),
+        'channel'   => env('DISCORD_CHANNEL'),
         'discord-php' => [
             'disabledEvents' => [
                 Event::TYPING_START,

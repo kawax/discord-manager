@@ -12,7 +12,7 @@ class RegisterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'discord:command:register';
+    protected $signature = 'discord:interactions:register';
 
     /**
      * The console command description.
@@ -38,9 +38,18 @@ class RegisterCommand extends Command
      */
     public function handle()
     {
+        $this->guild();
+
+        $this->newLine();
+
+        $this->global();
+    }
+
+    protected function guild()
+    {
         $this->info('Registering Guild Commands');
 
-        collect(config('discord_commands.guild'))
+        collect(config('discord_interactions.guild'))
             ->groupBy('guild_id')
             ->each(function ($commands, $guild_id) {
                 $this->line('Guild : '.$guild_id);
@@ -57,5 +66,22 @@ class RegisterCommand extends Command
                     $this->error('Failed : '.$response->json());
                 }
             });
+    }
+
+    protected function global()
+    {
+        $this->info('Registering Global Commands');
+
+        $app_id = config('services.discord.bot');
+
+        $data = config('discord_interactions.global');
+
+        $response = Http::discord()->put("/applications/$app_id/commands", $data);
+
+        if ($response->successful()) {
+            $this->info('Succeeded.');
+        } else {
+            $this->error('Failed : '.$response->json());
+        }
     }
 }

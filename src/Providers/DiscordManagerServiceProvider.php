@@ -78,11 +78,9 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ]);
         }
 
-        Http::macro('discord', function (string $api_version = '10'): PendingRequest {
-            return Http::withHeaders([
-                'Authorization' => 'Bot '.config('services.discord.token')
-            ])->baseUrl('https://discord.com/api/v'.$api_version);
-        });
+        Http::macro('discord', fn (int $api_version = 10): PendingRequest => Http::withHeaders([
+            'Authorization' => 'Bot '.config('services.discord.token')
+        ])->baseUrl('https://discord.com/api/v'.$api_version));
 
         $this->configurePublishing();
 
@@ -113,7 +111,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__.'/../../config/discord_commands.php' => $this->app->configPath('discord_commands.php'),
-        ], 'discord-commands-config');
+            __DIR__.'/../../config/discord_interactions.php' => $this->app->configPath('discord_interactions.php'),
+        ], 'discord-interactions-config');
     }
 }
