@@ -14,9 +14,11 @@ return [
             'type' => CommandType::CHAT_INPUT,
             'guild_id' => env('DISCORD_GUILD'),
             'options' => [
-                'name' => 'message',
-                'description' => 'optional message',
-                'type' => CommandOptionType::STRING,
+                [
+                    'name' => 'message',
+                    'description' => 'optional message',
+                    'type' => CommandOptionType::STRING,
+                ],
             ],
         ]
     ],
@@ -26,9 +28,11 @@ return [
             'description' => 'hello command',
             'type' => CommandType::CHAT_INPUT,
             'options' => [
-                'name' => 'message',
-                'description' => 'optional message',
-                'type' => CommandOptionType::STRING,
+                [
+                    'name' => 'message',
+                    'description' => 'optional message',
+                    'type' => CommandOptionType::STRING,
+                ],
             ],
         ]
     ]
