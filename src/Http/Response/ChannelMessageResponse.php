@@ -14,7 +14,7 @@ class ChannelMessageResponse implements InteractionsResponse
         return response()->json([
             'type' => InteractionResponseType::CHANNEL_MESSAGE_WITH_SOURCE,
             'data' => [
-                'content' => 'Hi! '.$request->json('member.user.username'),
+                'content' => 'Hi! @'.$request->json('member.user.id'),
             ],
         ]);
     }
