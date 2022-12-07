@@ -9,7 +9,6 @@
     "require": {
         "php": "^8.0",
         "restcord/restcord": "dev-develop",
-        "illuminate/http": "^9.0",
         "illuminate/support": "^9.0",
         "team-reflex/discord-php": "^7.0",
         "discord/interactions": "^2.2",
@@ -43,7 +42,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Revolution\\DiscordManager\\Providers\\DiscordManagerServiceProvider"
+                "Revolution\\DiscordManager\\Providers\\DiscordManagerServiceProvider",
+                "Revolution\\DiscordManager\\Providers\\DiscordInteractionsServiceProvider"
             ],
             "aliases": {
                 "DiscordManager": "Revolution\\DiscordManager\\Facades\\DiscordManager"

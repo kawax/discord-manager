@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Discord\WebSockets\Event;
+use Revolution\DiscordManager\Providers\DiscordInteractionsServiceProvider;
 use Revolution\DiscordManager\Providers\DiscordManagerServiceProvider;
 use Revolution\DiscordManager\Support\Intents;
 
@@ -12,6 +13,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             DiscordManagerServiceProvider::class,
+            DiscordInteractionsServiceProvider::class,
         ];
     }
 
@@ -19,7 +21,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             'DiscordManager' => \Revolution\DiscordManager\Facades\DiscordManager::class,
-            'Yasmin'         => \Revolution\DiscordManager\Facades\Yasmin::class,
             'RestCord'       => \Revolution\DiscordManager\Facades\RestCord::class,
             'DiscordPHP'       => \Revolution\DiscordManager\Facades\DiscordPHP::class,
         ];
@@ -34,20 +35,32 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('services.discord', [
-            'prefix'     => '/',
-            'not_found'  => 'Command Not Found!',
-            'path'       => [
+            'path'      => [
                 'commands' => __DIR__.'/Discord/Commands',
                 'directs'  => __DIR__.'/Discord/Directs',
+                'interactions'  => __DIR__.'/Discord/Interactions',
             ],
-            'token'      => 'test',
-            'channel'    => '1',
-            'bot'        => '2',
-            'yasmin'     => [
-                'ws.disabledEvents' => [
-                    'TYPING_START',
-                ],
+
+            //Bot token
+            'token'     => 'test',
+            //APPLICATION ID
+            'bot'       => '1',
+            //PUBLIC KEY
+            'public_key' => 'test',
+
+            //Notification route
+            'channel'   => '2',
+
+            //Interactions command
+            'interactions' => [
+                'path' => 'discord/webhook',
+                'route' => 'discord.webhook',
+                'middleware' => 'throttle',
             ],
+
+            //Gateway command
+            'prefix'    => '/',
+            'not_found' => 'Command Not Found!',
             'discord-php' => [
                 'disabledEvents' => [
                     Event::TYPING_START,
