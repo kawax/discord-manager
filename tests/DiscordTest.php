@@ -2,12 +2,17 @@
 
 namespace Tests;
 
+use Discord\InteractionResponseType;
 use Discord\Parts\Channel\Message;
+use Illuminate\Support\Facades\Event;
 use Revolution\DiscordManager\Contracts\Factory;
+use Revolution\DiscordManager\Contracts\InteractionsResponse;
 use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\RestCord;
+use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
 
 class DiscordTest extends TestCase
@@ -130,5 +135,19 @@ class DiscordTest extends TestCase
         $this->assertSame('11011011111101', decbin(Intents::bit(Intents::default())));
         $this->assertSame('100000000000000', decbin(Intents::bit(Intents::only([Intents::DIRECT_MESSAGE_TYPING]))));
         $this->assertSame('111111111111111', decbin(array_sum(Intents::all())));
+    }
+
+    public function testInteractionsDeferred()
+    {
+        Event::fake();
+
+        $response = $this->withoutMiddleware()->post(route('discord.webhook'));
+
+        $response->assertSuccessful()
+                 ->json([
+                     'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+                 ]);
+
+        Event::assertDispatched(InteractionsWebhook::class);
     }
 }

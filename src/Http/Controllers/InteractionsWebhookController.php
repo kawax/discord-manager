@@ -10,8 +10,8 @@ class InteractionsWebhookController
 {
     public function __invoke(Request $request)
     {
-        event(app(InteractionsEvent::class));
+        event(app(InteractionsEvent::class, compact('request')));
 
-        return app()->call(InteractionsResponse::class);
+        return app()->call(InteractionsResponse::class, compact('request'));
     }
 }
