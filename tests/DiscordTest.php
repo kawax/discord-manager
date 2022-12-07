@@ -145,7 +145,7 @@ class DiscordTest extends TestCase
 
         $response->assertSuccessful()
                  ->json([
-                     'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
+                     'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
                  ]);
 
         Event::assertDispatched(InteractionsWebhook::class);
