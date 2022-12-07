@@ -5,6 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/27e52e9ba3df10623fae/test_coverage)](https://codeclimate.com/github/kawax/discord-manager/test_coverage)
 
 - https://github.com/kawax/discord-project
+- https://github.com/kawax/discord-interactions
 - https://github.com/kawax/arty
 
 ## Requirements
