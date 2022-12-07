@@ -68,7 +68,7 @@ class DiscordManager implements Factory
      *
      * @throws CommandNotFountException
      */
-    protected function invoke(Message $message, $type = self::COMMANDS): void
+    protected function invoke(Message $message, string $type = self::COMMANDS): void
     {
         if (! Str::contains($message->content, $this->prefix)) {
             return; // @codeCoverageIgnore
@@ -96,10 +96,10 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  string|array  $paths
+     * @param  array|string  $paths
      * @param  string  $type
      */
-    protected function load($paths, string $type)
+    protected function load(array|string $paths, string $type)
     {
         $paths = array_unique(Arr::wrap($paths));
 
@@ -153,7 +153,7 @@ class DiscordManager implements Factory
             if ($type === self::DIRECTS) {
                 $this->directs[$name] = $cmd;
             }
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException) {
             return;
         }
     }

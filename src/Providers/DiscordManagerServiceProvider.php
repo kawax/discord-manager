@@ -89,6 +89,10 @@ class DiscordManagerServiceProvider extends ServiceProvider
 
     protected function interactionsRoute()
     {
+        if (config('services.discord.interactions.ignore_route') === true) {
+            return;
+        }
+
         Route::middleware(config('services.discord.interactions.middleware', 'throttle'))
              ->domain(config('services.discord.interactions.domain'))
              ->group(function () {

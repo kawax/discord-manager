@@ -29,19 +29,30 @@ use Discord\WebSockets\Event;
 
 return [
     'discord' => [
-        'prefix'    => '/',
-        'not_found' => 'Command Not Found!',
-        'path'      => [
-            'commands' => app_path('Discord/Commands'),
-            'directs'  => app_path('Discord/Directs'),
-        ],
         //Bot token
         'token'     => env('DISCORD_BOT_TOKEN'),
         //APPLICATION ID
         'bot'       => env('DISCORD_BOT'),
         //PUBLIC KEY
         'public_key' => env('DISCORD_PUBLIC_KEY'),
+
+        //Notification route
         'channel'   => env('DISCORD_CHANNEL'),
+
+        //Interactions command
+        'interactions' => [
+            'path' => 'discord/webhook',
+            'route' => 'discord.webhook',
+            'middleware' => 'throttle',
+        ],
+
+        //Gateway command
+        'prefix'    => '/',
+        'not_found' => 'Command Not Found!',
+        'path'      => [
+            'commands' => app_path('Discord/Commands'),
+            'directs'  => app_path('Discord/Directs'),
+        ],
         'discord-php' => [
             'disabledEvents' => [
                 Event::TYPING_START,
@@ -55,8 +66,12 @@ return [
 ### .env
 ```
 DISCORD_BOT_TOKEN=
-DISCORD_CHANNEL=
 DISCORD_BOT=
+DISCORD_PUBLIC_KEY=
+
+DISCORD_GUILD=
+
+DISCORD_CHANNEL=
 ```
 
 ## make Discord command
@@ -83,7 +98,7 @@ DiscordPHP::on('ready', function (Discord $discord) {
 DiscordPHP::run();
 ```
 
-https://github.com/teamreflex/DiscordPHP
+https://github.com/discord-php/DiscordPHP
 
 ## RestCord
 

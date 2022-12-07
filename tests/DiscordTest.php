@@ -3,12 +3,10 @@
 namespace Tests;
 
 use Discord\Parts\Channel\Message;
-use Mockery as m;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
-use Revolution\DiscordManager\Facades\DiscordPHP;
 use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Support\Intents;
 
@@ -31,14 +29,15 @@ class DiscordTest extends TestCase
     public function testCommand()
     {
         $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\TestCommand', $manager::COMMANDS);
+        $manager->add('Tests\Discord\Commands\TestCommand', DiscordManager::COMMANDS);
 
-        $message = m::mock('overload:'.Message::class);
-        $message->author = (object) [
-            'username' => 'test_user',
-        ];
-        $message->content = '/test';
-        $message->shouldReceive('reply->done')->once();
+        $message = $this->mock(Message::class, function ($mock) {
+            $mock->shouldReceive('getContentAttribute')
+                 ->twice()
+                 ->andReturn('/test');
+            $mock->shouldReceive('reply->done')
+                 ->once();
+        });
 
         $manager->command($message);
     }
@@ -48,11 +47,15 @@ class DiscordTest extends TestCase
         $this->expectException(CommandNotFountException::class);
 
         $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\HiddenCommand', $manager::COMMANDS);
+        $manager->add('Tests\Discord\Commands\HiddenCommand', DiscordManager::COMMANDS);
 
-        $message = m::mock('overload:'.Message::class);
-        $message->content = '/hide';
-        $message->shouldReceive('reply')->never();
+        $message = $this->mock(Message::class, function ($mock) {
+            $mock->shouldReceive('getContentAttribute')
+                 ->twice()
+                 ->andReturn('/hide');
+            $mock->shouldReceive('reply')
+                 ->never();
+        });
 
         $manager->command($message);
     }
@@ -60,14 +63,15 @@ class DiscordTest extends TestCase
     public function testDmCommand()
     {
         $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Directs\DmTestCommand', $manager::DIRECTS);
+        $manager->add('Tests\Discord\Directs\DmTestCommand', DiscordManager::DIRECTS);
 
-        $message = m::mock('overload:'.Message::class);
-        $message->author = (object) [
-            'username' => 'test_user',
-        ];
-        $message->content = '/test';
-        $message->shouldReceive('reply->done')->once();
+        $message = $this->mock(Message::class, function ($mock) {
+            $mock->shouldReceive('getContentAttribute')
+                 ->twice()
+                 ->andReturn('/test');
+            $mock->shouldReceive('reply->done')
+                 ->once();
+        });
 
         $manager->direct($message);
     }
@@ -76,9 +80,13 @@ class DiscordTest extends TestCase
     {
         $this->expectException(CommandNotFountException::class);
 
-        $message = m::mock('overload:'.Message::class);
-        $message->content = '/test';
-        $message->shouldReceive('reply')->never();
+        $message = $this->mock(Message::class, function ($mock) {
+            $mock->shouldReceive('getContentAttribute')
+                 ->twice()
+                 ->andReturn('/test');
+            $mock->shouldReceive('reply')
+                 ->never();
+        });
 
         DiscordManagerFacade::command($message);
     }
@@ -86,11 +94,15 @@ class DiscordTest extends TestCase
     public function testArgvCommand()
     {
         $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\ArgvCommand', $manager::COMMANDS);
+        $manager->add('Tests\Discord\Commands\ArgvCommand', DiscordManager::COMMANDS);
 
-        $message = m::mock('overload:'.Message::class);
-        $message->content = '/argv test --option=test';
-        $message->shouldReceive('reply->done')->once();
+        $message = $this->mock(Message::class, function ($mock) {
+            $mock->shouldReceive('getContentAttribute')
+                 ->times(3)
+                 ->andReturn('/argv test --option=test');
+            $mock->shouldReceive('reply->done')
+                 ->once();
+        });
 
         $manager->command($message);
     }
@@ -107,11 +119,6 @@ class DiscordTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
 
         $channel = RestCord::channels();
-    }
-
-    public function testDiscordPHP()
-    {
-        $this->assertIsArray(DiscordPHP::__debugInfo());
     }
 
     public function testIntents()

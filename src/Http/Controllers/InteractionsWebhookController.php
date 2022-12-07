@@ -10,7 +10,7 @@ class InteractionsWebhookController
 {
     public function __invoke(Request $request)
     {
-        event(app(InteractionsEvent::class));
+        dispatch(app(InteractionsEvent::class));
 
         return app()->call(InteractionsResponse::class);
     }
