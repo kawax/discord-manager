@@ -3,10 +3,10 @@
 namespace Revolution\DiscordManager\Http\Middleware;
 
 use Closure;
-use Discord\InteractionType;
-use Illuminate\Http\Request;
 use Discord\Interaction;
 use Discord\InteractionResponseType;
+use Discord\InteractionType;
+use Illuminate\Http\Request;
 
 class ValidateSignature
 {

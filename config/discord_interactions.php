@@ -20,13 +20,13 @@ return [
                     'type' => CommandOptionType::STRING,
                 ],
             ],
-        ]
+        ],
     ],
     'global' => [
         [
             'name' => 'hello',
             'description' => 'hello command',
             'type' => CommandType::CHAT_INPUT,
-        ]
-    ]
+        ],
+    ],
 ];

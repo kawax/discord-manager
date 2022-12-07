@@ -12,7 +12,7 @@ class PongResponse implements InteractionsResponse
     public function __invoke(Request $request): JsonResponse
     {
         return response()->json([
-            'type' => InteractionResponseType::PONG
+            'type' => InteractionResponseType::PONG,
         ]);
     }
 }

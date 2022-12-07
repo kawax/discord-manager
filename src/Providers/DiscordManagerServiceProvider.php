@@ -80,7 +80,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
         }
 
         Http::macro('discord', fn (int $version = 10): PendingRequest => Http::withHeaders([
-            'Authorization' => 'Bot '.config('services.discord.token')
+            'Authorization' => 'Bot '.config('services.discord.token'),
         ])->baseUrl('https://discord.com/api/v'.$version));
 
         $this->interactionsRoute();
