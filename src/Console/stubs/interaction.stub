@@ -19,20 +19,18 @@ class DummyClass
      */
     public function __invoke(Request $request)
     {
-        dispatch(function () use ($request) {
-            $app_id = config('services.discord.bot');
-            $token = $request->json('token');
+        $app_id = config('services.discord.bot');
+        $token = $request->json('token');
 
-            $user = $request->json('member.user.id', $request->json('user.id'));
+        $user = $request->json('member.user.id', $request->json('user.id'));
 
-            $data = [
-                'content' => "<@$user> Hello!",
-                'allowed_mentions' => ['parse' => ['users']],
-            ];
+        $data = [
+            'content' => "<@$user> Hello!",
+            'allowed_mentions' => ['parse' => ['users']],
+        ];
 
-            $response = Http::discord()->post("/webhooks/$app_id/$token", $data);
+        $response = Http::discord()->post("/webhooks/$app_id/$token", $data);
 
-            info($response->json());
-        })->afterResponse();
+        info($response->json());
     }
 }
