@@ -4,6 +4,7 @@ namespace Revolution\DiscordManager;
 
 use Discord\Parts\Channel\Message;
 use Illuminate\Console\Parser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -16,6 +17,7 @@ class DiscordManager implements Factory
     public const COMMANDS = 'commands';
 
     public const DIRECTS = 'directs';
+    public const INTERACTIONS = 'interactions';
 
     protected string $prefix;
 
@@ -24,6 +26,7 @@ class DiscordManager implements Factory
     protected array $commands = [];
 
     protected array $directs = [];
+    protected array $interactions = [];
 
     /**
      * DiscordManager constructor.
@@ -37,6 +40,7 @@ class DiscordManager implements Factory
 
         $this->load(data_get($config, 'path.commands', app()->path('Discord/Commands')), self::COMMANDS);
         $this->load(data_get($config, 'path.directs', app()->path('Discord/Directs')), self::DIRECTS);
+        $this->load(data_get($config, 'path.interactions', app()->path('Discord/Interactions')), self::INTERACTIONS);
     }
 
     /**
@@ -62,13 +66,30 @@ class DiscordManager implements Factory
     }
 
     /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     *
+     * @throws CommandNotFountException
+     */
+    public function interaction(Request $request): mixed
+    {
+        $name = $request->json('data.name');
+
+        if (Arr::has($this->interactions, $name) && is_callable($cmd = $this->interactions[$name])) {
+            return $cmd($request);
+        }
+
+        throw new CommandNotFountException($this->not_found);
+    }
+
+    /**
      * @param  Message  $message
      * @param  string  $type
      * @return void
      *
      * @throws CommandNotFountException
      */
-    protected function invoke(Message $message, $type = self::COMMANDS): void
+    protected function invoke(Message $message, string $type = self::COMMANDS): void
     {
         if (! Str::contains($message->content, $this->prefix)) {
             return; // @codeCoverageIgnore
@@ -96,10 +117,10 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  string|array  $paths
+     * @param  array|string  $paths
      * @param  string  $type
      */
-    protected function load($paths, string $type)
+    protected function load(array|string $paths, string $type)
     {
         $paths = array_unique(Arr::wrap($paths));
 
@@ -153,7 +174,11 @@ class DiscordManager implements Factory
             if ($type === self::DIRECTS) {
                 $this->directs[$name] = $cmd;
             }
-        } catch (\ReflectionException $e) {
+
+            if ($type === self::INTERACTIONS) {
+                $this->interactions[$name] = $cmd;
+            }
+        } catch (\ReflectionException) {
             return;
         }
     }

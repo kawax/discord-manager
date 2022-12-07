@@ -14,6 +14,37 @@ use Revolution\DiscordManager\Support\Intents;
 class DiscordManagerServiceProvider extends ServiceProvider
 {
     /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton(Factory::class, function ($app) {
+            return new DiscordManager(
+                config('services.discord')
+            );
+        });
+
+        $this->app->singleton(DiscordClient::class, function ($app) {
+            return new DiscordClient([
+                'token' => config('services.discord.token'),
+            ]);
+        });
+
+        $this->app->singleton(DiscordPHP::class, function ($app) {
+            return new DiscordPHP(array_merge([
+                'token' => config('services.discord.token'),
+            ], config('services.discord.discord-php', [
+                'disabledEvents' => [
+                    Event::TYPING_START,
+                ],
+                'intents' => array_sum(Intents::default()),
+            ])));
+        });
+    }
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -26,36 +57,5 @@ class DiscordManagerServiceProvider extends ServiceProvider
                 Console\MakeDirect::class,
             ]);
         }
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->singleton(Factory::class, function ($app) {
-            return new DiscordManager(
-                $app['config']->get('services.discord')
-            );
-        });
-
-        $this->app->singleton(DiscordClient::class, function ($app) {
-            return new DiscordClient([
-                'token' => $app['config']->get('services.discord.token'),
-            ]);
-        });
-
-        $this->app->singleton(DiscordPHP::class, function ($app) {
-            return new DiscordPHP(array_merge([
-                'token' => $app['config']->get('services.discord.token'),
-            ], $app['config']->get('services.discord.discord-php', [
-                'disabledEvents' => [
-                    Event::TYPING_START,
-                ],
-                'intents'        => array_sum(Intents::default()),
-            ])));
-        });
     }
 }
