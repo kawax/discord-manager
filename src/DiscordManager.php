@@ -66,7 +66,7 @@ class DiscordManager implements Factory
     }
 
     /**
-     * @param  Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      *
      * @throws CommandNotFountException
