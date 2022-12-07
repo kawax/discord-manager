@@ -78,8 +78,73 @@ DISCORD_CHANNEL=
 
 ## make Discord command
 ```
-php artisan make:discord:command NewChannelCommand
-php artisan make:discord:direct NewDmCommand
+php artisan discord:make:command NewChannelCommand
+php artisan discord:make:direct NewDmCommand
+php artisan discord:make:interaction NewInteractionCommand
+```
+
+## Interactions
+### Publish config file
+```shell
+php artisan vendor:publish --tag=discord-interactions-config
+```
+
+### Edit config/discord_interactions.php
+
+### Create a command to respond
+```shell
+php artisan discord:make:interaction HelloCommand
+```
+
+### Register commands to Discord server
+```shell
+php artisan discord:interactions:register
+```
+
+### Create Event listener
+```shell
+php artisan make:listener InteractionsListener
+```
+
+```php
+use Revolution\DiscordManager\Events\InteractionsWebhook;
+use Revolution\DiscordManager\Facades\DiscordManager;
+
+//
+
+    /**
+     * Handle the event.
+     *
+     * @param  InteractionsWebhook  $event
+     * @return void
+     */
+    public function handle(InteractionsWebhook $event)
+    {
+        // Must use queue or dispatch()->afterResponse()
+
+        // When not using a queue
+        dispatch(fn () => DiscordManager::interaction($event->request))->afterResponse();
+
+        // When using a queue
+        //DiscordManager::interaction($event->request);
+    }
+```
+
+EventServiceProvider.php
+```php
+use App\Listeners\InteractionsListener;
+use Revolution\DiscordManager\Events\InteractionsWebhook;
+
+//
+
+    protected $listen = [
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
+        InteractionsWebhook::class => [
+            InteractionsListener::class,
+        ],
+    ];
 ```
 
 ## DiscordPHP
