@@ -27,13 +27,6 @@ return [
             'name' => 'hello',
             'description' => 'hello command',
             'type' => CommandType::CHAT_INPUT,
-            'options' => [
-                [
-                    'name' => 'message',
-                    'description' => 'optional message',
-                    'type' => CommandOptionType::STRING,
-                ],
-            ],
         ]
     ]
 ];

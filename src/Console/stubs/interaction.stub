@@ -17,7 +17,7 @@ class DummyClass
      *
      * @return void
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): void
     {
         $app_id = config('services.discord.bot');
         $token = $request->json('token');
