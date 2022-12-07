@@ -74,6 +74,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
             $this->commands([
                 Console\MakeCommand::class,
                 Console\MakeDirect::class,
+                Console\MakeInteraction::class,
                 Console\RegisterCommand::class,
             ]);
         }
