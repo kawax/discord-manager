@@ -59,7 +59,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ])));
         });
 
-        $this->app->singleton(InteractionsResponse::class, ChannelMessageResponse::class);
+        $this->app->singleton(InteractionsResponse::class, DeferredResponse::class);
         $this->app->singleton(InteractionsEvent::class, InteractionsWebhook::class);
     }
 

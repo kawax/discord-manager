@@ -8,7 +8,7 @@ use Revolution\DiscordManager\Contracts\Factory;
 /**
  * @method static void command(\Discord\Parts\Channel\Message $message)
  * @method static void direct(\Discord\Parts\Channel\Message $message)
- * @method static void interaction(\Illuminate\Http\Request $request)
+ * @method static mixed interaction(\Illuminate\Http\Request $request)
  *
  * @see \Revolution\DiscordManager\DiscordManager
  */

@@ -67,18 +67,16 @@ class DiscordManager implements Factory
 
     /**
      * @param  Request  $request
-     * @return void
+     * @return mixed
      *
      * @throws CommandNotFountException
      */
-    public function interaction(Request $request): void
+    public function interaction(Request $request): mixed
     {
         $name = $request->json('data.name');
 
         if (Arr::has($this->interactions, $name) && is_callable($cmd = $this->interactions[$name])) {
-            $cmd($request);
-
-            return;
+            return $cmd($request);
         }
 
         throw new CommandNotFountException($this->not_found);
