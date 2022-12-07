@@ -4,6 +4,7 @@ namespace Revolution\DiscordManager;
 
 use Discord\Parts\Channel\Message;
 use Illuminate\Console\Parser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -16,6 +17,7 @@ class DiscordManager implements Factory
     public const COMMANDS = 'commands';
 
     public const DIRECTS = 'directs';
+    public const INTERACTIONS = 'interactions';
 
     protected string $prefix;
 
@@ -24,6 +26,7 @@ class DiscordManager implements Factory
     protected array $commands = [];
 
     protected array $directs = [];
+    protected array $interactions = [];
 
     /**
      * DiscordManager constructor.
@@ -37,6 +40,7 @@ class DiscordManager implements Factory
 
         $this->load(data_get($config, 'path.commands', app()->path('Discord/Commands')), self::COMMANDS);
         $this->load(data_get($config, 'path.directs', app()->path('Discord/Directs')), self::DIRECTS);
+        $this->load(data_get($config, 'path.interactions', app()->path('Discord/Interactions')), self::INTERACTIONS);
     }
 
     /**
@@ -59,6 +63,25 @@ class DiscordManager implements Factory
     public function direct(Message $message): void
     {
         $this->invoke($message, self::DIRECTS);
+    }
+
+    /**
+     * @param  Request  $request
+     * @return void
+     *
+     * @throws CommandNotFountException
+     */
+    public function interaction(Request $request): void
+    {
+        $name = $request->json('data.name');
+
+        if (Arr::has($this->interactions, $name) && is_callable($cmd = $this->interactions[$name])) {
+            $cmd($request);
+
+            return;
+        }
+
+        throw new CommandNotFountException($this->not_found);
     }
 
     /**
@@ -152,6 +175,10 @@ class DiscordManager implements Factory
 
             if ($type === self::DIRECTS) {
                 $this->directs[$name] = $cmd;
+            }
+
+            if ($type === self::INTERACTIONS) {
+                $this->interactions[$name] = $cmd;
             }
         } catch (\ReflectionException) {
             return;

@@ -29,6 +29,12 @@ use Discord\WebSockets\Event;
 
 return [
     'discord' => [
+       'path'      => [
+            'commands' => app_path('Discord/Commands'),
+            'directs'  => app_path('Discord/Directs'),
+            'interactions'  => app_path('Discord/Interactions'),
+        ],
+
         //Bot token
         'token'     => env('DISCORD_BOT_TOKEN'),
         //APPLICATION ID
@@ -49,10 +55,6 @@ return [
         //Gateway command
         'prefix'    => '/',
         'not_found' => 'Command Not Found!',
-        'path'      => [
-            'commands' => app_path('Discord/Commands'),
-            'directs'  => app_path('Discord/Directs'),
-        ],
         'discord-php' => [
             'disabledEvents' => [
                 Event::TYPING_START,
