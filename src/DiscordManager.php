@@ -73,7 +73,7 @@ class DiscordManager implements Factory
      */
     public function interaction(Request $request): mixed
     {
-        $name = $request->json('data.name');
+        $name = $request->json('data.name', $request->json('data.custom_id'));
 
         if (Arr::has($this->interactions, $name) && is_callable($cmd = $this->interactions[$name])) {
             return $cmd($request);
@@ -113,7 +113,7 @@ class DiscordManager implements Factory
             }
         }
 
-        throw new CommandNotFountException($this->not_found);
+        throw new CommandNotFountException($this->not_found.' : '.$command);
     }
 
     /**
