@@ -79,7 +79,7 @@ class DiscordManager implements Factory
             return $cmd($request);
         }
 
-        throw new CommandNotFountException($this->not_found);
+        throw new CommandNotFountException($this->not_found.' : '.$name);
     }
 
     /**
