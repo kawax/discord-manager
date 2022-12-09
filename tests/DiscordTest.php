@@ -2,15 +2,15 @@
 
 namespace Tests;
 
-use Discord\InteractionType;
-use Illuminate\Http\Client\Response;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Mockery as m;
 use Discord\Interaction;
 use Discord\InteractionResponseType;
+use Discord\InteractionType;
 use Discord\Parts\Channel\Message;
+use Illuminate\Http\Client\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Http;
+use Mockery as m;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
@@ -190,8 +190,8 @@ class DiscordTest extends TestCase
 
         $request = Request::create(uri: 'test', method: 'POST', content: json_encode([
             'data' => [
-                'name' => 'hello'
-            ]
+                'name' => 'hello',
+            ],
         ]));
 
         /** @var Response $response */
