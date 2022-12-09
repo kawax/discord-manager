@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Http;
 class HelloCommand
 {
     /**
-     * @var  string
+     * @var string
      */
     public string $command = 'hello';
 
     /**
      * @param  Request  $request
-     *
      * @return Response
      */
     public function __invoke(Request $request): Response
