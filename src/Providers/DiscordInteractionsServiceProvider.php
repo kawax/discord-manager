@@ -60,7 +60,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
     protected function interactionsRoute()
     {
         if (config('services.discord.interactions.ignore_route') === true) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         Route::middleware(config('services.discord.interactions.middleware', 'throttle'))

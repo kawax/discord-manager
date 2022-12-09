@@ -32,6 +32,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
             ]);
         });
 
+        // @codeCoverageIgnoreStart
         $this->app->singleton(DiscordPHP::class, function ($app) {
             return new DiscordPHP(array_merge([
                 'token' => config('services.discord.token'),
@@ -42,6 +43,7 @@ class DiscordManagerServiceProvider extends ServiceProvider
                 'intents' => array_sum(Intents::default()),
             ])));
         });
+        // @codeCoverageIgnoreEnd
     }
 
     /**

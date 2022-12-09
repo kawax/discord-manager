@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static on($event, callable $listener)
  * @method static run()
+ *
+ * @codeCoverageIgnore
  */
 class DiscordPHP extends Facade
 {

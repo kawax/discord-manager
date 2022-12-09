@@ -4,9 +4,9 @@ namespace Revolution\DiscordManager\Http\Middleware;
 
 use Closure;
 use Discord\Interaction;
-use Discord\InteractionResponseType;
 use Discord\InteractionType;
 use Illuminate\Http\Request;
+use Revolution\DiscordManager\Http\Response\PongResponse;
 
 class ValidateSignature
 {
@@ -17,22 +17,16 @@ class ValidateSignature
      * @param  Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
-        if (! $request->hasHeader('X-Signature-Ed25519')) {
-            abort(401, 'Request does not contain signature');
-        }
+        abort_unless($request->hasHeader('X-Signature-Ed25519'), 401, 'Request does not contain signature');
 
-        if (! $request->hasHeader('X-Signature-Timestamp')) {
-            abort(401, 'Request does not contain signature timestamp');
-        }
+        abort_unless($request->hasHeader('X-Signature-Timestamp'), 401, 'Request does not contain signature timestamp');
 
-        if (! $this->validateSignature($request)) {
-            abort(401, 'Invalid signature has given');
-        }
+        abort_unless($this->validateSignature($request), 401, 'Invalid signature has given');
 
         if ($request->json('type') === InteractionType::PING) {
-            return response()->json(['type' => InteractionResponseType::PONG]);
+            return app()->call(PongResponse::class, compact('request'));
         }
 
         return $next($request); // @codeCoverageIgnore

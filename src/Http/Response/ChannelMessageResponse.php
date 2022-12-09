@@ -7,6 +7,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ChannelMessageResponse implements InteractionsResponse
 {
     public function __invoke(Request $request): JsonResponse

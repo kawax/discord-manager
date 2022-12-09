@@ -2,10 +2,17 @@
 
 namespace Tests;
 
+use Discord\InteractionType;
+use Illuminate\Http\Client\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Mockery as m;
+use Discord\Interaction;
 use Discord\InteractionResponseType;
 use Discord\Parts\Channel\Message;
 use Illuminate\Support\Facades\Event;
 use Revolution\DiscordManager\Contracts\Factory;
+use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
@@ -14,6 +21,7 @@ use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
+use Tests\Discord\Interactions\HelloCommand;
 
 class DiscordTest extends TestCase
 {
@@ -144,10 +152,51 @@ class DiscordTest extends TestCase
         $response = $this->withoutMiddleware()->post(route('discord.webhook'));
 
         $response->assertSuccessful()
-                 ->json([
+                 ->assertExactJson([
                      'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
                  ]);
 
         Event::assertDispatched(InteractionsWebhook::class);
+    }
+
+    public function testInteractionsValidateSignature()
+    {
+        Event::fake();
+
+        $mock = m::mock('overload:'.Interaction::class);
+        $mock->shouldReceive('verifyKey')->once()->andReturnTrue();
+
+        $response = $this->withHeaders([
+            'X-Signature-Ed25519' => 'test',
+            'X-Signature-Timestamp' => 'test',
+        ])->postJson(route('discord.webhook'), [
+            'type' => InteractionType::PING,
+        ]);
+
+        $response->assertSuccessful()
+                 ->assertExactJson([
+                     'type' => InteractionResponseType::PONG,
+                 ]);
+
+        Event::assertNotDispatched(InteractionsEvent::class);
+    }
+
+    public function testInteractionsCommand()
+    {
+        Http::fake();
+
+        $manager = app(Factory::class);
+        $manager->add(HelloCommand::class, DiscordManager::INTERACTIONS);
+
+        $request = Request::create(uri: 'test', method: 'POST', content: json_encode([
+            'data' => [
+                'name' => 'hello'
+            ]
+        ]));
+
+        /** @var Response $response */
+        $response = $manager->interaction($request);
+
+        $this->assertSame(200, $response->status());
     }
 }
