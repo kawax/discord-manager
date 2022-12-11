@@ -201,6 +201,7 @@ class DiscordTest extends TestCase
         $manager->add(HelloCommand::class, DiscordManager::INTERACTIONS);
 
         $request = Request::create(uri: 'test', method: 'POST', content: json_encode([
+            'token' => 'test',
             'data' => [
                 'name' => 'hello',
             ],

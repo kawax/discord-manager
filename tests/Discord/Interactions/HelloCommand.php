@@ -4,10 +4,12 @@ namespace Tests\Discord\Interactions;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Revolution\DiscordManager\Concerns\WithInteraction;
 
 class HelloCommand
 {
+    use WithInteraction;
+
     /**
      * @var string
      */
@@ -19,9 +21,6 @@ class HelloCommand
      */
     public function __invoke(Request $request): Response
     {
-        $app_id = config('services.discord.bot');
-        $token = $request->json('token');
-
         $user = $request->json('member.user.id', $request->json('user.id'));
 
         $data = [
@@ -29,6 +28,6 @@ class HelloCommand
             'allowed_mentions' => ['parse' => ['users']],
         ];
 
-        return Http::discord()->post("/webhooks/$app_id/$token", $data);
+        return $this->followup(token: $request->json('token'), data: $data);
     }
 }
