@@ -17,6 +17,7 @@ class DiscordManager implements Factory
     public const COMMANDS = 'commands';
 
     public const DIRECTS = 'directs';
+
     public const INTERACTIONS = 'interactions';
 
     protected string $prefix;
@@ -26,6 +27,7 @@ class DiscordManager implements Factory
     protected array $commands = [];
 
     protected array $directs = [];
+
     protected array $interactions = [];
 
     /**
@@ -126,9 +128,7 @@ class DiscordManager implements Factory
 
         $paths = array_filter(
             $paths,
-            function ($path) {
-                return is_dir($path);
-            }
+            fn ($path) => is_dir($path)
         );
 
         if (empty($paths)) {
@@ -158,28 +158,28 @@ class DiscordManager implements Factory
             if ((new ReflectionClass($command))->isAbstract()) {
                 return; // @codeCoverageIgnore
             }
-
-            $cmd = app($command);
-
-            [$name] = Parser::parse($cmd->command);
-
-            if (($cmd->hidden ?? false)) {
-                return;
-            }
-
-            if ($type === self::COMMANDS) {
-                $this->commands[$name] = $cmd;
-            }
-
-            if ($type === self::DIRECTS) {
-                $this->directs[$name] = $cmd;
-            }
-
-            if ($type === self::INTERACTIONS) {
-                $this->interactions[$name] = $cmd;
-            }
         } catch (\ReflectionException) {
             return;
+        }
+
+        $cmd = app($command);
+
+        [$name] = Parser::parse($cmd->command);
+
+        if (($cmd->hidden ?? false)) {
+            return;
+        }
+
+        if ($type === self::COMMANDS) {
+            $this->commands[$name] = $cmd;
+        }
+
+        if ($type === self::DIRECTS) {
+            $this->directs[$name] = $cmd;
+        }
+
+        if ($type === self::INTERACTIONS) {
+            $this->interactions[$name] = $cmd;
         }
     }
 }
