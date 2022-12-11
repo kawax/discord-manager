@@ -26,7 +26,7 @@ class ValidateSignature
         abort_unless($this->validateSignature($request), 401, 'Invalid signature has given');
 
         if ($request->json('type') === InteractionType::PING) {
-            return app()->call(PongResponse::class, compact('request'));
+            return app()->call(PongResponse::class);
         }
 
         return $next($request); // @codeCoverageIgnore

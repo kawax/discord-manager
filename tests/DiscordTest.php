@@ -19,6 +19,7 @@ use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\RestCord;
+use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
 use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
 use Tests\Discord\Interactions\HelloCommand;
@@ -149,7 +150,7 @@ class DiscordTest extends TestCase
     {
         Event::fake();
 
-        $response = $this->withoutMiddleware()->post(route('discord.webhook'));
+        $response = $this->withoutMiddleware(ValidateSignature::class)->post(route('discord.webhook'));
 
         $response->assertSuccessful()
                  ->assertExactJson([
@@ -157,6 +158,17 @@ class DiscordTest extends TestCase
                  ]);
 
         Event::assertDispatched(InteractionsWebhook::class);
+    }
+
+    public function testValidateFailed()
+    {
+        Event::fake();
+
+        $response = $this->post(route('discord.webhook'));
+
+        $response->assertStatus(401);
+
+        Event::assertNotDispatched(InteractionsWebhook::class);
     }
 
     public function testInteractionsValidateSignature()

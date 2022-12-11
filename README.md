@@ -121,13 +121,7 @@ use Revolution\DiscordManager\Facades\DiscordManager;
      */
     public function handle(InteractionsWebhook $event)
     {
-        // Must use queue or dispatch()->afterResponse()
-
-        // When not using a queue
-        dispatch(fn () => DiscordManager::interaction($event->request))->afterResponse();
-
-        // When using a queue
-        //DiscordManager::interaction($event->request);
+        DiscordManager::interaction($event->request);
     }
 ```
 

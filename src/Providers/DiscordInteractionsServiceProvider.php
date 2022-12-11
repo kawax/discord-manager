@@ -11,6 +11,7 @@ use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
+use Revolution\DiscordManager\Http\Middleware\DispatchInteractionsEvent;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
 use Revolution\DiscordManager\Http\Response\ChannelMessageResponse;
 use Revolution\DiscordManager\Http\Response\DeferredResponse;
@@ -68,7 +69,10 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
              ->group(function () {
                  Route::post(config('services.discord.interactions.path', 'discord/webhook'))
                       ->name(config('services.discord.interactions.route', 'discord.webhook'))
-                      ->middleware(ValidateSignature::class)
+                      ->middleware([
+                          ValidateSignature::class,
+                          DispatchInteractionsEvent::class,
+                      ])
                       ->uses(InteractionsWebhookController::class);
              });
     }
