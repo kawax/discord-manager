@@ -121,8 +121,9 @@ class DiscordManager implements Factory
     /**
      * @param  array|string  $paths
      * @param  string  $type
+     * @return void
      */
-    protected function load(array|string $paths, string $type)
+    protected function load(array|string $paths, string $type): void
     {
         $paths = array_unique(Arr::wrap($paths));
 
@@ -151,8 +152,9 @@ class DiscordManager implements Factory
     /**
      * @param  string  $command
      * @param  string  $type
+     * @return void
      */
-    public function add(string $command, string $type = self::COMMANDS)
+    public function add(string $command, string $type = self::COMMANDS): void
     {
         try {
             if ((new ReflectionClass($command))->isAbstract()) {

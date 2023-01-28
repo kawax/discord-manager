@@ -24,7 +24,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/discord_interactions.php',
@@ -40,7 +40,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -58,7 +58,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
         $this->configurePublishing();
     }
 
-    protected function interactionsRoute()
+    protected function interactionsRoute(): void
     {
         if (config('services.discord.interactions.ignore_route') === true) {
             return; // @codeCoverageIgnore
@@ -82,7 +82,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePublishing()
+    protected function configurePublishing(): void
     {
         if (! $this->app->runningInConsole()) {
             return; // @codeCoverageIgnore
