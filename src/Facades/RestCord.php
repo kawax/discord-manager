@@ -3,8 +3,8 @@
 namespace Revolution\DiscordManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use RestCord\DiscordClient;
 use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
+use RestCord\DiscordClient;
 
 #[CodeCoverageIgnore]
 class RestCord extends Facade
