@@ -11,16 +11,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
 use Mockery as m;
+use RestCord\DiscordClient;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
-use Revolution\DiscordManager\Contracts\InteractionsResponse;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
 use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
-use Revolution\DiscordManager\Http\Response\PongResponse;
 use Revolution\DiscordManager\Support\Intents;
 use Tests\Discord\Interactions\HelloCommand;
 
@@ -123,6 +122,10 @@ class DiscordTest extends TestCase
 
     public function testRestCord()
     {
+        if (! class_exists(DiscordClient::class)) {
+            $this->markTestSkipped('Skip RestCord.');
+        }
+
         $channel = RestCord::channel();
 
         $this->assertNotNull($channel);
@@ -130,6 +133,10 @@ class DiscordTest extends TestCase
 
     public function testRestCordFail()
     {
+        if (! class_exists(DiscordClient::class)) {
+            $this->markTestSkipped('Skip RestCord.');
+        }
+
         $this->expectException(\BadMethodCallException::class);
 
         $channel = RestCord::channels();

@@ -5,7 +5,7 @@ namespace Revolution\DiscordManager\Providers;
 use Discord\Discord as DiscordPHP;
 use Discord\WebSockets\Event;
 use Illuminate\Support\ServiceProvider;
-use RestCord\DiscordClient;
+use RestCord\DiscordClient as RestCord;
 use Revolution\DiscordManager\Console;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\DiscordManager;
@@ -26,11 +26,13 @@ class DiscordManagerServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(DiscordClient::class, function ($app) {
-            return new DiscordClient([
-                'token' => config('services.discord.token'),
-            ]);
-        });
+        if (class_exists(RestCord::class)) {
+            $this->app->singleton(RestCord::class, function ($app) {
+                return new RestCord([
+                    'token' => config('services.discord.token'),
+                ]);
+            });
+        }
 
         // @codeCoverageIgnoreStart
         $this->app->singleton(DiscordPHP::class, function ($app) {

@@ -7,7 +7,7 @@ use Revolution\DiscordManager\Contracts\InteractionsResponse;
 
 class InteractionsWebhookController
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): mixed
     {
         return app()->call(InteractionsResponse::class);
     }

@@ -23,6 +23,11 @@ If you want to add a Discord notification channel.
 composer require laravel-notification-channels/discord
 ```
 
+RestCord is optional.
+```
+composer require restcord/restcord dev-develop
+```
+
 ### config/services.php
 ```php
 use Revolution\DiscordManager\Support\Intents;

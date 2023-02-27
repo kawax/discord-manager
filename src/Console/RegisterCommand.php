@@ -48,7 +48,7 @@ class RegisterCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function guild()
+    protected function guild(): void
     {
         $this->info('Registering Guild Commands');
 
@@ -72,7 +72,7 @@ class RegisterCommand extends Command
             });
     }
 
-    protected function global()
+    protected function global(): void
     {
         $this->info('Registering Global Commands');
 

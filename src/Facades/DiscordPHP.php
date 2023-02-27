@@ -4,13 +4,13 @@ namespace Revolution\DiscordManager\Facades;
 
 use Discord\Discord;
 use Illuminate\Support\Facades\Facade;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 
 /**
  * @method static on($event, callable $listener)
  * @method static run()
- *
- * @codeCoverageIgnore
  */
+#[CodeCoverageIgnore]
 class DiscordPHP extends Facade
 {
     /**
@@ -18,7 +18,7 @@ class DiscordPHP extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Discord::class;
     }
