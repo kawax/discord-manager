@@ -9,10 +9,6 @@ use Symfony\Component\Console\Input\InputInterface;
 
 trait Input
 {
-    /**
-     * @param  array  $argv
-     * @return InputInterface
-     */
     public function input(array $argv): InputInterface
     {
         [$name, $args, $options] = Parser::parse($this->command);
