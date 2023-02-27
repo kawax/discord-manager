@@ -14,17 +14,17 @@
 
 ## Installation
 
-```
+```shell
 composer require revolution/discord-manager
 ```
 
 If you want to add a Discord notification channel.
-```
+```shell
 composer require laravel-notification-channels/discord
 ```
 
 RestCord is optional.
-```
+```shell
 composer require restcord/restcord dev-develop
 ```
 
@@ -82,8 +82,18 @@ DISCORD_GUILD=
 DISCORD_CHANNEL=
 ```
 
-## make Discord command
+### Uninstall
+```shell
+composer remove revolution/discord-manager
 ```
+
+- Delete `discord` section in `config/services.php`
+- Delete `config/discord_interactions.php`
+- Delete `app/Discord/` and other files.
+- Delete `DISCORD_*` in `.env`
+
+## make Discord command
+```shell
 php artisan discord:make:command NewChannelCommand
 php artisan discord:make:direct NewDmCommand
 php artisan discord:make:interaction NewInteractionCommand
