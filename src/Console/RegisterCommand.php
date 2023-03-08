@@ -57,7 +57,7 @@ class RegisterCommand extends Command
             ->each(function ($commands, $guild_id) {
                 $this->line('Guild : '.$guild_id);
 
-                $app_id = config('services.discord.bot');
+                $app_id = config('discord_interactions.bot');
 
                 $data = collect($commands)->except(['guild_id'])->toArray();
 
@@ -76,7 +76,7 @@ class RegisterCommand extends Command
     {
         $this->info('Registering Global Commands');
 
-        $app_id = config('services.discord.bot');
+        $app_id = config('discord_interactions.bot');
 
         $data = config('discord_interactions.global');
 
