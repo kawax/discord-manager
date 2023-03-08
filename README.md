@@ -27,6 +27,8 @@ DISCORD_BOT=
 
 # PUBLIC KEY
 DISCORD_PUBLIC_KEY=
+
+DISCORD_GUILD=
 ```
 
 ### Uninstall
