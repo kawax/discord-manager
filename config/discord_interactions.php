@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Revolution\DiscordManager\Support\CommandOptionType;
 use Revolution\DiscordManager\Support\CommandType;
 

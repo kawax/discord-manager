@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;

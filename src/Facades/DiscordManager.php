@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Facades;
 
 use Illuminate\Http\Client\PendingRequest;

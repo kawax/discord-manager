@@ -3,7 +3,6 @@
 namespace DummyNamespace;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Revolution\DiscordManager\Concerns\WithInteraction;
 
 class DummyClass
