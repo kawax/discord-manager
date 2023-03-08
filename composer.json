@@ -39,10 +39,7 @@
         "laravel": {
             "providers": [
                 "Revolution\\DiscordManager\\Providers\\DiscordInteractionsServiceProvider"
-            ],
-            "aliases": {
-                "DiscordManager": "Revolution\\DiscordManager\\Facades\\DiscordManager"
-            }
+            ]
         }
     },
     "minimum-stability": "stable"
