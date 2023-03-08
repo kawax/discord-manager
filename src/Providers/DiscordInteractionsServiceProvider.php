@@ -2,8 +2,6 @@
 
 namespace Revolution\DiscordManager\Providers;
 
-use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\DiscordManager\Console;
@@ -15,9 +13,7 @@ use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
 use Revolution\DiscordManager\Http\Middleware\DispatchInteractionsEvent;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
-use Revolution\DiscordManager\Http\Response\ChannelMessageResponse;
 use Revolution\DiscordManager\Http\Response\DeferredResponse;
-use Revolution\DiscordManager\Http\Response\PongResponse;
 
 class DiscordInteractionsServiceProvider extends ServiceProvider
 {
