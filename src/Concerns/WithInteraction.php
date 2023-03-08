@@ -9,7 +9,7 @@ trait WithInteraction
 {
     public function followup(string $token, array $data): Response
     {
-        $app_id = config('services.discord.bot');
+        $app_id = config('discord_interactions.bot');
 
         return DiscordManager::http()->post("/webhooks/$app_id/$token", $data);
     }
