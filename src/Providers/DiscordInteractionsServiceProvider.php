@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\DiscordManager\Console;
+use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
+use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
 use Revolution\DiscordManager\Http\Middleware\DispatchInteractionsEvent;
@@ -21,8 +23,6 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -31,14 +31,14 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
             'discord_interactions'
         );
 
+        $this->app->singleton(Factory::class, DiscordManager::class);
+
         $this->app->singleton(InteractionsResponse::class, DeferredResponse::class);
         $this->app->singleton(InteractionsEvent::class, InteractionsWebhook::class);
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -49,10 +49,6 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
             ]);
         }
 
-        Http::macro('discord', fn (int $version = 10): PendingRequest => Http::withHeaders([
-            'Authorization' => 'Bot '.config('services.discord.token'),
-        ])->baseUrl('https://discord.com/api/v'.$version));
-
         $this->interactionsRoute();
 
         $this->configurePublishing();
@@ -60,15 +56,15 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
 
     protected function interactionsRoute(): void
     {
-        if (config('services.discord.interactions.ignore_route') === true) {
+        if (config('discord_interactions.ignore_route') === true) {
             return; // @codeCoverageIgnore
         }
 
-        Route::middleware(config('services.discord.interactions.middleware', 'throttle'))
-             ->domain(config('services.discord.interactions.domain'))
+        Route::middleware(config('discord_interactions.middleware', 'throttle'))
+             ->domain(config('discord_interactions.domain'))
              ->group(function () {
-                 Route::post(config('services.discord.interactions.path', 'discord/webhook'))
-                      ->name(config('services.discord.interactions.route', 'discord.webhook'))
+                 Route::post(config('discord_interactions.path', 'discord/webhook'))
+                      ->name(config('discord_interactions.route', 'discord.webhook'))
                       ->middleware([
                           ValidateSignature::class,
                           DispatchInteractionsEvent::class,

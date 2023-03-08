@@ -2,27 +2,24 @@
 
 namespace Tests;
 
-use Discord\WebSockets\Event;
 use Revolution\DiscordManager\Providers\DiscordInteractionsServiceProvider;
-use Revolution\DiscordManager\Providers\DiscordManagerServiceProvider;
+use Revolution\DiscordManager\Support\CommandOptionType;
+use Revolution\DiscordManager\Support\CommandType;
 use Revolution\DiscordManager\Support\Intents;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
-            DiscordManagerServiceProvider::class,
             DiscordInteractionsServiceProvider::class,
         ];
     }
 
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
             'DiscordManager' => \Revolution\DiscordManager\Facades\DiscordManager::class,
-            'RestCord'       => \Revolution\DiscordManager\Facades\RestCord::class,
-            'DiscordPHP'       => \Revolution\DiscordManager\Facades\DiscordPHP::class,
         ];
     }
 
@@ -32,41 +29,45 @@ class TestCase extends \Orchestra\Testbench\TestCase
      * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('services.discord', [
-            'path'      => [
-                'commands' => __DIR__.'/Discord/Commands',
-                'directs'  => __DIR__.'/Discord/Directs',
-                'interactions'  => __DIR__.'/Discord/Interactions',
+        $app['config']->set('discord_interactions', [
+            'guild' => [
+                [
+                    'name' => 'test',
+                    'description' => 'test command',
+                    'type' => CommandType::CHAT_INPUT,
+                    'guild_id' => env('DISCORD_GUILD'),
+                    'options' => [
+                        [
+                            'name' => 'message',
+                            'description' => 'optional message',
+                            'type' => CommandOptionType::STRING,
+                        ],
+                    ],
+                ],
             ],
 
+            'global' => [
+                [
+                    'name' => 'hello',
+                    'description' => 'hello command',
+                    'type' => CommandType::CHAT_INPUT,
+                ],
+            ],
+
+            'commands' => __DIR__.'/Discord/Interactions',
+
             //Bot token
-            'token'     => 'test',
+            'token' => 'test',
             //APPLICATION ID
-            'bot'       => '1',
+            'bot' => '1',
             //PUBLIC KEY
             'public_key' => 'test',
 
-            //Notification route
-            'channel'   => '2',
-
-            //Interactions command
-            'interactions' => [
-                'path' => 'discord/webhook',
-                'route' => 'discord.webhook',
-                'middleware' => 'throttle',
-            ],
-
-            //Gateway command
-            'prefix'    => '/',
-            'not_found' => 'Command Not Found!',
-            'discord-php' => [
-                'disabledEvents' => [
-                    Event::TYPING_START,
-                ],
-                'intents'        => array_sum(Intents::default()),
-            ],
+            'path' => 'discord/webhook',
+            'route' => 'discord.webhook',
+            'middleware' => 'throttle',
         ]);
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Support;
 
-class ButtonStyle
+enum ButtonStyle: int
 {
-    public const PRIMARY = 1;
-    public const SECONDARY = 2;
-    public const SUCCESS = 3;
-    public const DANGER = 4;
-    public const LINK = 5;
+    case PRIMARY = 1;
+    case SECONDARY = 2;
+    case SUCCESS = 3;
+    case DANGER = 4;
+    case LINK = 5;
 }

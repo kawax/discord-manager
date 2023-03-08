@@ -3,7 +3,7 @@
 namespace Revolution\DiscordManager\Concerns;
 
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
+use Revolution\DiscordManager\Facades\DiscordManager;
 
 trait WithInteraction
 {
@@ -11,6 +11,6 @@ trait WithInteraction
     {
         $app_id = config('services.discord.bot');
 
-        return Http::discord()->post("/webhooks/$app_id/$token", $data);
+        return DiscordManager::http()->post("/webhooks/$app_id/$token", $data);
     }
 }

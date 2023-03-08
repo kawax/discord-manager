@@ -5,22 +5,18 @@ namespace Tests;
 use Discord\Interaction;
 use Discord\InteractionResponseType;
 use Discord\InteractionType;
-use Discord\Parts\Channel\Message;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Mockery as m;
-use RestCord\DiscordClient;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\DiscordManager;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
-use Revolution\DiscordManager\Facades\DiscordManager as DiscordManagerFacade;
-use Revolution\DiscordManager\Facades\RestCord;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
-use Revolution\DiscordManager\Support\Intents;
 use Tests\Discord\Interactions\HelloCommand;
 
 class DiscordTest extends TestCase
@@ -37,120 +33,6 @@ class DiscordTest extends TestCase
         $manager = app(Factory::class);
 
         $this->assertInstanceOf(DiscordManager::class, $manager);
-    }
-
-    public function testCommand()
-    {
-        $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\TestCommand', DiscordManager::COMMANDS);
-
-        $message = $this->mock(Message::class, function ($mock) {
-            $mock->shouldReceive('getContentAttribute')
-                 ->twice()
-                 ->andReturn('/test');
-            $mock->shouldReceive('reply->done')
-                 ->once();
-        });
-
-        $manager->command($message);
-    }
-
-    public function testHiddenCommand()
-    {
-        $this->expectException(CommandNotFountException::class);
-
-        $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\HiddenCommand', DiscordManager::COMMANDS);
-
-        $message = $this->mock(Message::class, function ($mock) {
-            $mock->shouldReceive('getContentAttribute')
-                 ->twice()
-                 ->andReturn('/hide');
-            $mock->shouldReceive('reply')
-                 ->never();
-        });
-
-        $manager->command($message);
-    }
-
-    public function testDmCommand()
-    {
-        $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Directs\DmTestCommand', DiscordManager::DIRECTS);
-
-        $message = $this->mock(Message::class, function ($mock) {
-            $mock->shouldReceive('getContentAttribute')
-                 ->twice()
-                 ->andReturn('/test');
-            $mock->shouldReceive('reply->done')
-                 ->once();
-        });
-
-        $manager->direct($message);
-    }
-
-    public function testCommandNotFound()
-    {
-        $this->expectException(CommandNotFountException::class);
-
-        $message = $this->mock(Message::class, function ($mock) {
-            $mock->shouldReceive('getContentAttribute')
-                 ->twice()
-                 ->andReturn('/test');
-            $mock->shouldReceive('reply')
-                 ->never();
-        });
-
-        DiscordManagerFacade::command($message);
-    }
-
-    public function testArgvCommand()
-    {
-        $manager = app(Factory::class);
-        $manager->add('Tests\Discord\Commands\ArgvCommand', DiscordManager::COMMANDS);
-
-        $message = $this->mock(Message::class, function ($mock) {
-            $mock->shouldReceive('getContentAttribute')
-                 ->times(3)
-                 ->andReturn('/argv test --option=test');
-            $mock->shouldReceive('reply->done')
-                 ->once();
-        });
-
-        $manager->command($message);
-    }
-
-    public function testRestCord()
-    {
-        if (! class_exists(DiscordClient::class)) {
-            $this->markTestSkipped('Skip RestCord.');
-        }
-
-        $channel = RestCord::channel();
-
-        $this->assertNotNull($channel);
-    }
-
-    public function testRestCordFail()
-    {
-        if (! class_exists(DiscordClient::class)) {
-            $this->markTestSkipped('Skip RestCord.');
-        }
-
-        $this->expectException(\BadMethodCallException::class);
-
-        $channel = RestCord::channels();
-    }
-
-    public function testIntents()
-    {
-        $this->assertIsArray(Intents::all());
-        $this->assertIsArray(Intents::default());
-        $this->assertArrayHasKey(Intents::GUILD_MESSAGES, Intents::only([Intents::GUILD_MESSAGES]));
-        $this->assertArrayNotHasKey(Intents::GUILD_PRESENCES, Intents::except([Intents::GUILD_PRESENCES]));
-        $this->assertSame('11011011111101', decbin(Intents::bit(Intents::default())));
-        $this->assertSame('100000000000000', decbin(Intents::bit(Intents::only([Intents::DIRECT_MESSAGE_TYPING]))));
-        $this->assertSame('111111111111111', decbin(array_sum(Intents::all())));
     }
 
     public function testInteractionsDeferred()
@@ -205,7 +87,7 @@ class DiscordTest extends TestCase
         Http::fake();
 
         $manager = app(Factory::class);
-        $manager->add(HelloCommand::class, DiscordManager::INTERACTIONS);
+        $manager->add(HelloCommand::class);
 
         $request = Request::create(uri: 'test', method: 'POST', content: json_encode([
             'token' => 'test',
@@ -218,5 +100,41 @@ class DiscordTest extends TestCase
         $response = $manager->interaction($request);
 
         $this->assertSame(200, $response->status());
+    }
+
+    public function testInteractionsCommandNotFound()
+    {
+        $this->expectException(CommandNotFountException::class);
+
+        Http::fake();
+
+        $request = Request::create(uri: 'test', method: 'POST', content: json_encode([
+            'token' => 'test',
+            'data' => [
+                'name' => 'test',
+            ],
+        ]));
+
+        \Revolution\DiscordManager\Facades\DiscordManager::interaction($request);
+    }
+
+    public function testInteractionsMakeCommand()
+    {
+        File::delete(app_path('Discord/Interactions/Test.php'));
+
+        $this->artisan('discord:make:interaction', ['name' => 'Test'])
+             ->assertSuccessful();
+
+        $this->assertTrue(File::exists(app_path('Discord/Interactions/Test.php')));
+    }
+
+    public function testInteractionsRegister()
+    {
+        Http::fake();
+
+        $this->artisan('discord:interactions:register')
+             ->assertSuccessful();
+
+        Http::assertSentCount(2);
     }
 }

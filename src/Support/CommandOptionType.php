@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Support;
 
 // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
-class CommandOptionType
+enum CommandOptionType: int
 {
-    public const SUB_COMMAND = 1;
-    public const SUB_COMMAND_GROUP = 2;
-    public const STRING = 3;
-    public const INTEGER = 4;
-    public const BOOLEAN = 5;
-    public const USER = 6;
-    public const CHANNEL = 7;
-    public const ROLE = 8;
-    public const MENTIONABLE = 9;
-    public const NUMBER = 10;
-    public const ATTACHMENT = 11;
+    case SUB_COMMAND = 1;
+    case SUB_COMMAND_GROUP = 2;
+    case STRING = 3;
+    case INTEGER = 4;
+    case BOOLEAN = 5;
+    case USER = 6;
+    case CHANNEL = 7;
+    case ROLE = 8;
+    case MENTIONABLE = 9;
+    case NUMBER = 10;
+    case ATTACHMENT = 11;
 }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Support;
 
 // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
-class CommandType
+enum CommandType: int
 {
-    public const CHAT_INPUT = 1;
-    public const USER = 2;
-    public const MESSAGE = 3;
+    case CHAT_INPUT = 1;
+    case USER = 2;
+    case MESSAGE = 3;
 }

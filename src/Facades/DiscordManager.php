@@ -2,13 +2,13 @@
 
 namespace Revolution\DiscordManager\Facades;
 
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Facade;
 use Revolution\DiscordManager\Contracts\Factory;
 
 /**
- * @method static void command(\Discord\Parts\Channel\Message $message)
- * @method static void direct(\Discord\Parts\Channel\Message $message)
  * @method static mixed interaction(\Illuminate\Http\Request $request)
+ * @method static PendingRequest http(int $version = 10)
  *
  * @see \Revolution\DiscordManager\DiscordManager
  */
@@ -16,8 +16,6 @@ class DiscordManager extends Facade
 {
     /**
      * Get the registered name of the component.
-     *
-     * @return string
      */
     protected static function getFacadeAccessor(): string
     {

@@ -4,7 +4,7 @@ namespace Revolution\DiscordManager\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
+use Revolution\DiscordManager\Facades\DiscordManager;
 
 class RegisterCommand extends Command
 {
@@ -62,12 +62,12 @@ class RegisterCommand extends Command
                 $data = collect($commands)->except(['guild_id'])->toArray();
 
                 /** @var Response $response */
-                $response = Http::discord()->put("/applications/$app_id/guilds/$guild_id/commands", $data);
+                $response = DiscordManager::http()->put("/applications/$app_id/guilds/$guild_id/commands", $data);
 
                 if ($response->successful()) {
                     $this->info('Succeeded.');
                 } else {
-                    $this->error('Failed : '.$response->body());
+                    $this->error('Failed : '.$response->body()); // @codeCoverageIgnore
                 }
             });
     }
@@ -81,12 +81,12 @@ class RegisterCommand extends Command
         $data = config('discord_interactions.global');
 
         /** @var Response $response */
-        $response = Http::discord()->put("/applications/$app_id/commands", $data);
+        $response = DiscordManager::http()->put("/applications/$app_id/commands", $data);
 
         if ($response->successful()) {
             $this->info('Succeeded.');
         } else {
-            $this->error('Failed : '.$response->body());
+            $this->error('Failed : '.$response->body()); // @codeCoverageIgnore
         }
     }
 }

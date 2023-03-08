@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Support;
 
-class ComponentType
+enum ComponentType: int
 {
-    public const ACTION_ROW = 1;
-    public const BUTTON = 2;
-    public const STRING_SELECT = 3;
-    public const TEXT_INPUT = 4;
-    public const USER_SELECT = 5;
-    public const ROLE_SELECT = 6;
-    public const MENTIONABLE_SELECT = 7;
-    public const CHANNEL_SELECT = 8;
+    case ACTION_ROW = 1;
+    case BUTTON = 2;
+    case STRING_SELECT = 3;
+    case TEXT_INPUT = 4;
+    case USER_SELECT = 5;
+    case ROLE_SELECT = 6;
+    case MENTIONABLE_SELECT = 7;
+    case CHANNEL_SELECT = 8;
 }

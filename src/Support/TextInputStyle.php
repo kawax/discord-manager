@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\DiscordManager\Support;
 
-class TextInputStyle
+enum TextInputStyle: int
 {
-    public const SHORT = 1;
-    public const PARAGRAPH = 2;
+    case SHORT = 1;
+    case PARAGRAPH = 2;
 }

@@ -1,5 +1,12 @@
 # UPGRADING
 
+## v5.0
+- Since v5, only Interactions command is provided.
+- Delete DiscordPHP and RestCord
+- Require PHP8.1
+- All settings are moved to `config/discord_interactions.php`.
+- The `discord` section of `config/services.php` can be deleted.
+
 ## v4.0
 - Require Laravel 9.x
 - Require PHP8.0+
