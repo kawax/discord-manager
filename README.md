@@ -103,5 +103,15 @@ use Revolution\DiscordManager\Events\InteractionsWebhook;
     ];
 ```
 
+## Workflow
+1. POST request comes in from Discord to https://example/discord/webhook
+2. [ValidateSignature](https://github.com/kawax/discord-manager/blob/master/src/Http/Middleware/ValidateSignature.php)
+3. [InteractionsWebhookController](https://github.com/kawax/discord-manager/blob/master/src/Http/Controllers/InteractionsWebhookController.php)
+4. [DeferredResponse](https://github.com/kawax/discord-manager/blob/master/src/Http/Response/DeferredResponse.php)
+5. [DispatchInteractionsEvent](https://github.com/kawax/discord-manager/blob/master/src/Http/Middleware/DispatchInteractionsEvent.php) Terminable Middleware
+6. [InteractionsWebhook](https://github.com/kawax/discord-manager/blob/master/src/Events/InteractionsWebhook.php) Event dispatch
+7. InteractionsListener in your project.
+8. DiscordManager invokes one of the commands in `app/Discord/`.
+
 ## LICENSE
 MIT  
