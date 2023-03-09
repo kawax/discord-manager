@@ -6,7 +6,7 @@
 
 - https://github.com/kawax/discord-interactions
 
-> **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel. [v4](https://github.com/kawax/discord-manager/tree/4.x) still support Gateway API.
+> **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel. [v4](./tree/4.x) still support Gateway API.
 
 ## Requirements
 - PHP >= 8.1
@@ -105,11 +105,11 @@ use Revolution\DiscordManager\Events\InteractionsWebhook;
 
 ## Workflow
 1. POST request comes in from Discord to https://example/discord/webhook
-2. [ValidateSignature](https://github.com/kawax/discord-manager/blob/master/src/Http/Middleware/ValidateSignature.php)
-3. [InteractionsWebhookController](https://github.com/kawax/discord-manager/blob/master/src/Http/Controllers/InteractionsWebhookController.php)
-4. [DeferredResponse](https://github.com/kawax/discord-manager/blob/master/src/Http/Response/DeferredResponse.php)
-5. [DispatchInteractionsEvent](https://github.com/kawax/discord-manager/blob/master/src/Http/Middleware/DispatchInteractionsEvent.php) Terminable Middleware
-6. [InteractionsWebhook](https://github.com/kawax/discord-manager/blob/master/src/Events/InteractionsWebhook.php) Event dispatch
+2. [ValidateSignature](./src/Http/Middleware/ValidateSignature.php)
+3. [InteractionsWebhookController](./src/Http/Controllers/InteractionsWebhookController.php)
+4. [DeferredResponse](./src/Http/Response/DeferredResponse.php)
+5. [DispatchInteractionsEvent](./src/Http/Middleware/DispatchInteractionsEvent.php) Terminable Middleware
+6. [InteractionsWebhook](./src/Events/InteractionsWebhook.php) Event dispatch
 7. InteractionsListener in your project.
 8. DiscordManager invokes one of the commands in `app/Discord/`.
 
