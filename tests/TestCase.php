@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Revolution\DiscordManager\Providers\DiscordInteractionsServiceProvider;
 use Revolution\DiscordManager\Support\CommandOptionType;
 use Revolution\DiscordManager\Support\CommandType;
-use Revolution\DiscordManager\Support\Intents;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -18,9 +19,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getPackageAliases($app): array
     {
-        return [
-            'DiscordManager' => \Revolution\DiscordManager\Facades\DiscordManager::class,
-        ];
+        return [];
     }
 
     /**
@@ -37,7 +36,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
                     'name' => 'test',
                     'description' => 'test command',
                     'type' => CommandType::CHAT_INPUT,
-                    'guild_id' => env('DISCORD_GUILD'),
+                    'guild_id' => 1,
                     'options' => [
                         [
                             'name' => 'message',
@@ -56,7 +55,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
                 ],
             ],
 
-            'commands' => __DIR__.'/Discord/Interactions',
+            'commands' => app_path('/Discord/Interactions'),
 
             //Bot token
             'token' => 'test',

@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use ReflectionClass;
+use ReflectionException;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Symfony\Component\Finder\Finder;
@@ -60,7 +61,7 @@ class DiscordManager implements Factory
 
         $namespace = app()->getNamespace();
 
-        foreach ((new Finder())->in($paths)->files() as $command) {
+        foreach ((new Finder())->in($paths)->name('*.php')->files() as $command) {
             $command = $namespace.str_replace(
                     ['/', '.php'],
                     ['\\', ''],
@@ -77,7 +78,7 @@ class DiscordManager implements Factory
             if ((new ReflectionClass($command))->isAbstract()) {
                 return; // @codeCoverageIgnore
             }
-        } catch (\ReflectionException) {
+        } catch (ReflectionException) {
             return;
         }
 
