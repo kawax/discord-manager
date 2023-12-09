@@ -63,10 +63,10 @@ class DiscordManager implements Factory
 
         foreach ((new Finder())->in($paths)->name('*.php')->files() as $command) {
             $command = $namespace.str_replace(
-                    ['/', '.php'],
-                    ['\\', ''],
-                    Str::after($command->getPathname(), app()->path().DIRECTORY_SEPARATOR)
-                );
+                ['/', '.php'],
+                ['\\', ''],
+                Str::after($command->getPathname(), app()->path().DIRECTORY_SEPARATOR)
+            );
 
             $this->add($command);
         }
@@ -86,7 +86,7 @@ class DiscordManager implements Factory
 
         [$name] = Parser::parse($cmd->command);
 
-        if (($cmd->hidden ?? false)) {
+        if ($cmd->hidden ?? false) {
             return; // @codeCoverageIgnore
         }
 
