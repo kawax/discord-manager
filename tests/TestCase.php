@@ -57,6 +57,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
             'commands' => app_path('/Discord/Interactions'),
 
+            'version' => 10,
+
             //Bot token
             'token' => 'test',
             //APPLICATION ID

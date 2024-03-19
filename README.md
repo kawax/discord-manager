@@ -28,6 +28,7 @@ DISCORD_BOT=
 # PUBLIC KEY
 DISCORD_PUBLIC_KEY=
 
+# GUILD ID
 DISCORD_GUILD=
 ```
 
@@ -86,7 +87,7 @@ use Revolution\DiscordManager\Facades\DiscordManager;
     }
 ```
 
-EventServiceProvider.php
+(Only Laravel10) Update EventServiceProvider.php
 ```php
 use App\Listeners\InteractionsListener;
 use Revolution\DiscordManager\Events\InteractionsWebhook;

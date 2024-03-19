@@ -33,6 +33,9 @@ return [
         ],
     ],
 
+    // API Version
+    'version' => env('DISCORD_API_VERSION', 10),
+
     // Commands path
     'commands' => app_path('Discord/Interactions'),
 

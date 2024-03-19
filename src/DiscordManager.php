@@ -39,11 +39,11 @@ class DiscordManager implements Factory
         throw new CommandNotFountException('Command Not Found! : '.$name);
     }
 
-    public function http(int $version = 10): PendingRequest
+    public function http(): PendingRequest
     {
         return Http::withToken(token: config('discord_interactions.token'),
             type: 'Bot')
-                   ->baseUrl('https://discord.com/api/v'.$version);
+                   ->baseUrl('https://discord.com/api/v'.config('discord_interactions.version', 10));
     }
 
     protected function load(): void

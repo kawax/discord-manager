@@ -47,7 +47,7 @@ class RegisterCommand extends Command
 
         $this->global();
 
-        return Command::SUCCESS;
+        return 0;
     }
 
     protected function guild(): void
