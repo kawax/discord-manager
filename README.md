@@ -9,8 +9,8 @@
 > **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel. [v4](https://github.com/kawax/discord-manager/tree/4.x) still support Gateway API.
 
 ## Requirements
-- PHP >= 8.1
-- Laravel >= 10.0
+- PHP >= 8.2
+- Laravel >= 11.0
 
 ## Installation
 
