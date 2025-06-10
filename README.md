@@ -442,7 +442,6 @@ The package supports various Discord command and component types:
 - **Immediate Response**: Direct reply to the interaction
 - **Deferred Response**: Acknowledge first, respond later (recommended)
 - **Followup Messages**: Additional messages after the initial response
-- **Ephemeral Messages**: Private messages only visible to the user
 
 ### Best Practices
 
@@ -453,4 +452,4 @@ The package supports various Discord command and component types:
 5. **Implement Logging**: Use Laravel's logging to track interactions and debug issues
 
 ## LICENSE
-MIT                    
+MIT 
