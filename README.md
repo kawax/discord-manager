@@ -92,7 +92,7 @@ Edit `config/discord_interactions.php` to define your Discord commands:
 
 ```php
 return [
-    // Guild-specific commands (faster to register, only available in specified servers)
+    // Guild-specific commands (only available in specified servers)
     'guild' => [
         [
             'name' => 'hello',
@@ -110,7 +110,7 @@ return [
         ],
     ],
 
-    // Global commands (available in all servers, takes up to 1 hour to register)
+    // Global commands (available in all servers)
     'global' => [
         [
             'name' => 'ping',
@@ -351,7 +351,7 @@ php artisan discord:interactions:register
 
 1. **Webhook URL not accessible**: Ensure your application is publicly accessible and the webhook URL is correct
 2. **Invalid signature**: Verify your `DISCORD_PUBLIC_KEY` is correct
-3. **Commands not appearing**: Wait up to 1 hour for global commands, or use guild commands for instant registration
+3. **Commands not appearing**: Check that commands are properly registered and the bot has necessary permissions
 4. **Permission errors**: Ensure your bot has the necessary permissions in the Discord server
 
 #### Testing Webhook Locally
@@ -420,8 +420,8 @@ The package supports various Discord command and component types:
 1. **Use Deferred Responses**: Always use `followup()` for responses that take time to process
 2. **Handle Errors Gracefully**: Implement proper error handling in your command classes
 3. **Validate Input**: Always validate user input from command options
-4. **Use Guild Commands for Development**: Guild commands register instantly, global commands take up to 1 hour
+4. **Use Guild Commands for Development**: Guild commands are scoped to specific servers for testing
 5. **Implement Logging**: Use Laravel's logging to track interactions and debug issues
 
 ## LICENSE
-MIT    
+MIT        
