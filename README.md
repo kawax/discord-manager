@@ -189,6 +189,8 @@ php artisan discord:interactions:register
 
 #### 3. Create Event Listener
 
+The Discord Manager package uses Laravel's event system to handle incoming webhook requests. When Discord sends a webhook request to your application, the package dispatches an `InteractionsWebhook` event. You need to create a listener to handle this event and process the Discord interaction.
+
 ```shell
 php artisan make:listener InteractionsListener
 ```
@@ -211,6 +213,8 @@ class InteractionsListener
     }
 }
 ```
+
+This listener receives the webhook request from Discord and passes it to the DiscordManager, which then routes it to the appropriate command class based on the interaction data.
 
 
 
@@ -414,4 +418,4 @@ The package supports various Discord command and component types:
 5. **Implement Logging**: Use Laravel's logging to track interactions and debug issues
 
 ## LICENSE
-MIT            
+MIT                
