@@ -1,11 +1,5 @@
 # Discord Manager
 
-[![packagist](https://badgen.net/packagist/v/revolution/discord-manager)](https://packagist.org/packages/revolution/discord-manager)
-[![Maintainability](https://api.codeclimate.com/v1/badges/27e52e9ba3df10623fae/maintainability)](https://codeclimate.com/github/kawax/discord-manager/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/27e52e9ba3df10623fae/test_coverage)](https://codeclimate.com/github/kawax/discord-manager/test_coverage)
-
-- https://github.com/kawax/discord-interactions
-
 > **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel. [v4](https://github.com/kawax/discord-manager/tree/4.x) still support Gateway API.
 
 ## Requirements
@@ -60,6 +54,9 @@ php artisan discord:make:interaction HelloCommand
 ```
 
 ### Register commands to Discord server
+
+You need to define and register the commands you actually use in `config/discord_interactions.php`.
+
 ```shell
 php artisan discord:interactions:register
 ```
@@ -87,23 +84,6 @@ use Revolution\DiscordManager\Facades\DiscordManager;
     }
 ```
 
-(Only Laravel10) Update EventServiceProvider.php
-```php
-use App\Listeners\InteractionsListener;
-use Revolution\DiscordManager\Events\InteractionsWebhook;
-
-//
-
-    protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-        InteractionsWebhook::class => [
-            InteractionsListener::class,
-        ],
-    ];
-```
-
 ## Workflow
 1. POST request comes in from Discord to https://example/discord/webhook
 2. [ValidateSignature](./src/Http/Middleware/ValidateSignature.php)
@@ -113,6 +93,10 @@ use Revolution\DiscordManager\Events\InteractionsWebhook;
 6. [InteractionsWebhook](./src/Events/InteractionsWebhook.php) Event dispatch
 7. InteractionsListener in your project.
 8. DiscordManager invokes one of the commands in `app/Discord/`.
+
+## Sample
+
+https://github.com/kawax/discord-interactions
 
 ## LICENSE
 MIT  
