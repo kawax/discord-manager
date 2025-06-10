@@ -23,35 +23,35 @@ use Tests\Discord\Interactions\HelloCommand;
 
 class DiscordTest extends TestCase
 {
-    public function testInstance()
+    public function test_instance()
     {
         $manager = new DiscordManager([]);
 
         $this->assertInstanceOf(DiscordManager::class, $manager);
     }
 
-    public function testContainer()
+    public function test_container()
     {
         $manager = app(Factory::class);
 
         $this->assertInstanceOf(DiscordManager::class, $manager);
     }
 
-    public function testInteractionsDeferred()
+    public function test_interactions_deferred()
     {
         Event::fake();
 
         $response = $this->withoutMiddleware(ValidateSignature::class)->post(route('discord.webhook'));
 
         $response->assertSuccessful()
-                 ->assertExactJson([
-                     'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-                 ]);
+            ->assertExactJson([
+                'type' => InteractionResponseType::DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+            ]);
 
         Event::assertDispatched(InteractionsWebhook::class);
     }
 
-    public function testValidateFailed()
+    public function test_validate_failed()
     {
         Event::fake();
 
@@ -62,7 +62,7 @@ class DiscordTest extends TestCase
         Event::assertNotDispatched(InteractionsWebhook::class);
     }
 
-    public function testInteractionsValidateSignature()
+    public function test_interactions_validate_signature()
     {
         Event::fake();
 
@@ -77,14 +77,14 @@ class DiscordTest extends TestCase
         ]);
 
         $response->assertSuccessful()
-                 ->assertExactJson([
-                     'type' => InteractionResponseType::PONG,
-                 ]);
+            ->assertExactJson([
+                'type' => InteractionResponseType::PONG,
+            ]);
 
         Event::assertNotDispatched(InteractionsEvent::class);
     }
 
-    public function testInteractionsCommand()
+    public function test_interactions_command()
     {
         Http::fake();
 
@@ -104,7 +104,7 @@ class DiscordTest extends TestCase
         $this->assertSame(200, $response->status());
     }
 
-    public function testInteractionsCommandNotFound()
+    public function test_interactions_command_not_found()
     {
         $this->expectException(CommandNotFountException::class);
 
@@ -120,22 +120,22 @@ class DiscordTest extends TestCase
         \Revolution\DiscordManager\Facades\DiscordManager::interaction($request);
     }
 
-    public function testInteractionsMakeCommand()
+    public function test_interactions_make_command()
     {
         File::delete(app_path('Discord/Interactions/Test.php'));
 
         $this->artisan('discord:make:interaction', ['name' => 'Test'])
-             ->assertSuccessful();
+            ->assertSuccessful();
 
         $this->assertTrue(File::exists(app_path('Discord/Interactions/Test.php')));
     }
 
-    public function testInteractionsRegister()
+    public function test_interactions_register()
     {
         Http::fake();
 
         $this->artisan('discord:interactions:register')
-             ->assertSuccessful();
+            ->assertSuccessful();
 
         Http::assertSentCount(2);
     }

@@ -39,13 +39,13 @@ return [
     // Commands path
     'commands' => app_path('Discord/Interactions'),
 
-    //Bot token
+    // Bot token
     'token' => env('DISCORD_BOT_TOKEN'),
 
-    //APPLICATION ID
+    // APPLICATION ID
     'bot' => env('DISCORD_BOT'),
 
-    //PUBLIC KEY
+    // PUBLIC KEY
     'public_key' => env('DISCORD_PUBLIC_KEY'),
 
     // URI path

@@ -14,21 +14,12 @@ class DispatchInteractionsEvent
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  Request  $request
-     * @param  Closure  $next
-     * @return mixed
      */
     public function handle(Request $request, Closure $next): mixed
     {
         return $next($request);
     }
 
-    /**
-     * @param  Request  $request
-     * @param  JsonResponse|Response  $response
-     * @return void
-     */
     public function terminate(Request $request, Response|JsonResponse $response): void
     {
         if ($response->isSuccessful()) {

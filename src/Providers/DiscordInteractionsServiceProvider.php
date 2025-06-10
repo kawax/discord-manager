@@ -59,22 +59,20 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
         }
 
         Route::middleware(config('discord_interactions.middleware', 'throttle'))
-             ->domain(config('discord_interactions.domain'))
-             ->group(function () {
-                 Route::post(config('discord_interactions.path', 'discord/webhook'))
-                      ->name(config('discord_interactions.route', 'discord.webhook'))
-                      ->middleware([
-                          ValidateSignature::class,
-                          DispatchInteractionsEvent::class,
-                      ])
-                      ->uses(InteractionsWebhookController::class);
-             });
+            ->domain(config('discord_interactions.domain'))
+            ->group(function () {
+                Route::post(config('discord_interactions.path', 'discord/webhook'))
+                    ->name(config('discord_interactions.route', 'discord.webhook'))
+                    ->middleware([
+                        ValidateSignature::class,
+                        DispatchInteractionsEvent::class,
+                    ])
+                    ->uses(InteractionsWebhookController::class);
+            });
     }
 
     /**
      * Configure publishing for the package.
-     *
-     * @return void
      */
     protected function configurePublishing(): void
     {

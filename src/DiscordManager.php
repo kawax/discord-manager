@@ -43,7 +43,7 @@ class DiscordManager implements Factory
     {
         return Http::withToken(token: config('discord_interactions.token'),
             type: 'Bot')
-                   ->baseUrl('https://discord.com/api/v'.config('discord_interactions.version', 10));
+            ->baseUrl('https://discord.com/api/v'.config('discord_interactions.version', 10));
     }
 
     protected function load(): void
@@ -61,7 +61,7 @@ class DiscordManager implements Factory
 
         $namespace = app()->getNamespace();
 
-        foreach ((new Finder())->in($paths)->name('*.php')->files() as $command) {
+        foreach ((new Finder)->in($paths)->name('*.php')->files() as $command) {
             $command = $namespace.str_replace(
                 ['/', '.php'],
                 ['\\', ''],

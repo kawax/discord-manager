@@ -26,7 +26,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
      * Define environment setup.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return void
      */
     protected function getEnvironmentSetUp($app): void
     {
@@ -59,11 +58,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
             'version' => 10,
 
-            //Bot token
+            // Bot token
             'token' => 'test',
-            //APPLICATION ID
+            // APPLICATION ID
             'bot' => '1',
-            //PUBLIC KEY
+            // PUBLIC KEY
             'public_key' => 'test',
 
             'path' => 'discord/webhook',
