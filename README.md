@@ -181,13 +181,48 @@ class HelloCommand
 }
 ```
 
-#### 2. Register Commands
+#### 2. Add Command to Configuration
+
+The command you created can be used as either a guild-specific or global command. You need to add it to your `config/discord_interactions.php` file to specify where it should be registered.
+
+Edit `config/discord_interactions.php` and add your command to either the `guild` or `global` array:
+
+```php
+return [
+    // For guild-specific commands (only available in specified servers)
+    'guild' => [
+        [
+            'name' => 'hello',
+            'description' => 'Say hello from Laravel',
+            'type' => CommandType::CHAT_INPUT,
+            'guild_id' => env('DISCORD_GUILD'),
+        ],
+        // Add more guild commands here...
+    ],
+
+    // For global commands (available in all servers where your bot is installed)
+    'global' => [
+        [
+            'name' => 'hello',
+            'description' => 'Say hello from Laravel',
+            'type' => CommandType::CHAT_INPUT,
+        ],
+        // Add more global commands here...
+    ],
+
+    // ... rest of configuration
+];
+```
+
+Choose `guild` for testing and development, or `global` for production deployment to all servers.
+
+#### 3. Register Commands
 
 ```shell
 php artisan discord:interactions:register
 ```
 
-#### 3. Create Event Listener
+#### 4. Create Event Listener
 
 The Discord Manager package uses Laravel's event system to handle incoming webhook requests. When Discord sends a webhook request to your application, the package dispatches an `InteractionsWebhook` event. You need to create a listener to handle this event and process the Discord interaction.
 
@@ -418,4 +453,4 @@ The package supports various Discord command and component types:
 5. **Implement Logging**: Use Laravel's logging to track interactions and debug issues
 
 ## LICENSE
-MIT                
+MIT                    
