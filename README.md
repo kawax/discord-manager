@@ -1,5 +1,7 @@
 # Discord Manager
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/invokable/discord-manager)
+
 > **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel.
 
 ## Overview
