@@ -74,9 +74,6 @@ use Revolution\DiscordManager\Facades\DiscordManager;
 
     /**
      * Handle the event.
-     *
-     * @param  InteractionsWebhook  $event
-     * @return void
      */
     public function handle(InteractionsWebhook $event)
     {
