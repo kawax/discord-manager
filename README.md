@@ -212,17 +212,7 @@ class InteractionsListener
 }
 ```
 
-#### 4. Register the Listener
 
-Add to `app/Providers/EventServiceProvider.php`:
-
-```php
-protected $listen = [
-    \Revolution\DiscordManager\Events\InteractionsWebhook::class => [
-        \App\Listeners\InteractionsListener::class,
-    ],
-];
-```
 
 ### Advanced Usage
 
@@ -424,4 +414,4 @@ The package supports various Discord command and component types:
 5. **Implement Logging**: Use Laravel's logging to track interactions and debug issues
 
 ## LICENSE
-MIT        
+MIT            
