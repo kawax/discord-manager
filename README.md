@@ -395,7 +395,7 @@ For local development, we recommend using [expose](https://expose.dev/) to expos
 First, install expose globally:
 
 ```shell
-npm install -g @beyondcode/expose
+composer global require exposedev/expose
 ```
 
 Then expose your local Laravel server:
