@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Http;
 use Mockery as m;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
-use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\DiscordCommandRegistry;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
+use Revolution\DiscordManager\Facades\DiscordManager;
 use Revolution\DiscordManager\Http\Middleware\ValidateSignature;
 use Tests\Discord\Interactions\HelloCommand;
 
@@ -25,16 +26,16 @@ class DiscordTest extends TestCase
 {
     public function test_instance()
     {
-        $manager = new DiscordManager([]);
+        $manager = new DiscordCommandRegistry([]);
 
-        $this->assertInstanceOf(DiscordManager::class, $manager);
+        $this->assertInstanceOf(DiscordCommandRegistry::class, $manager);
     }
 
     public function test_container()
     {
         $manager = app(Factory::class);
 
-        $this->assertInstanceOf(DiscordManager::class, $manager);
+        $this->assertInstanceOf(DiscordCommandRegistry::class, $manager);
     }
 
     public function test_interactions_deferred()
@@ -117,7 +118,7 @@ class DiscordTest extends TestCase
             ],
         ]));
 
-        \Revolution\DiscordManager\Facades\DiscordManager::interaction($request);
+        DiscordManager::interaction($request);
     }
 
     public function test_interactions_make_command()

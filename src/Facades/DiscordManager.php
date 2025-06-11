@@ -12,7 +12,7 @@ use Revolution\DiscordManager\Contracts\Factory;
  * @method static mixed interaction(\Illuminate\Http\Request $request)
  * @method static PendingRequest http(int $version = 10)
  *
- * @see \Revolution\DiscordManager\DiscordManager
+ * @see \Revolution\DiscordManager\DiscordCommandRegistry
  */
 class DiscordManager extends Facade
 {

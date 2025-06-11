@@ -10,7 +10,7 @@ use Revolution\DiscordManager\Console;
 use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Contracts\InteractionsEvent;
 use Revolution\DiscordManager\Contracts\InteractionsResponse;
-use Revolution\DiscordManager\DiscordManager;
+use Revolution\DiscordManager\DiscordCommandRegistry;
 use Revolution\DiscordManager\Events\InteractionsWebhook;
 use Revolution\DiscordManager\Http\Controllers\InteractionsWebhookController;
 use Revolution\DiscordManager\Http\Middleware\DispatchInteractionsEvent;
@@ -29,7 +29,7 @@ class DiscordInteractionsServiceProvider extends ServiceProvider
             'discord_interactions'
         );
 
-        $this->app->singleton(Factory::class, DiscordManager::class);
+        $this->app->singleton(Factory::class, DiscordCommandRegistry::class);
 
         $this->app->singleton(InteractionsResponse::class, DeferredResponse::class);
         $this->app->singleton(InteractionsEvent::class, InteractionsWebhook::class);

@@ -16,7 +16,7 @@ use Revolution\DiscordManager\Contracts\Factory;
 use Revolution\DiscordManager\Exceptions\CommandNotFountException;
 use Symfony\Component\Finder\Finder;
 
-class DiscordManager implements Factory
+class DiscordCommandRegistry implements Factory
 {
     protected array $interactions = [];
 
