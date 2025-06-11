@@ -390,13 +390,21 @@ php artisan discord:interactions:register
 
 #### Testing Webhook Locally
 
-For local development, use tools like ngrok to expose your local server:
+For local development, we recommend using [expose](https://expose.dev/) to expose your local server. Expose is a popular choice among Laravel/PHP developers for creating secure tunnels to localhost.
+
+First, install expose globally:
 
 ```shell
-ngrok http 8000
+npm install -g @beyondcode/expose
 ```
 
-Then use the ngrok URL as your webhook endpoint in Discord Developer Portal.
+Then expose your local Laravel server:
+
+```shell
+expose 8000
+```
+
+Use the generated expose URL as your webhook endpoint in Discord Developer Portal.
 
 ## How It Works
 
