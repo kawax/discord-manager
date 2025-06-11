@@ -410,6 +410,8 @@ To use expose, start your Laravel local server first, then run the `expose share
 
 ```shell
 php artisan serve
+```
+```shell
 expose share http://127.0.0.1:8000
 ```
 
