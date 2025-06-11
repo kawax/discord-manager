@@ -22,6 +22,11 @@ Discord Manager is a Laravel package that provides seamless integration with Dis
 
 The package operates by receiving webhook requests from Discord when users interact with your bot's commands. These requests are validated, processed through middleware, and dispatched to your custom command handlers. The workflow ensures secure communication with Discord while providing a familiar Laravel development experience.
 
+### See also
+
+- [Socialite for Discord](https://github.com/invokable/socialite-discord)
+- [Laravel Notification for Discord(Webhook)](https://github.com/invokable/laravel-notification-discord-webhook)
+
 ## Requirements
 - PHP >= 8.2
 - Laravel >= 11.0
