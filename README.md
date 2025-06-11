@@ -398,11 +398,22 @@ First, install expose globally:
 composer global require exposedev/expose
 ```
 
-Then expose your local Laravel server:
+Next, create an expose account and set your authentication token:
 
 ```shell
-expose 8000
+expose token YOUR_TOKEN
 ```
+
+For more information on authentication, see the [expose documentation](https://expose.dev/docs/getting-started/authentication).
+
+To use expose, start your Laravel local server first, then run the `expose share` command:
+
+```shell
+php artisan serve
+expose share http://127.0.0.1:8000
+```
+
+If you are not using `php artisan serve`, please adjust it to suit your environment.
 
 Use the generated expose URL as your webhook endpoint in Discord Developer Portal.
 
