@@ -2,7 +2,7 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/invokable/discord-manager)
 
-> **Note** Since v5, only Interactions command is provided. Interactions command is webhook-based, it is easy to use in Laravel. All features using WebSockets have been removed.
+> **Note** As of v5, only the Interactions command is provided, which is webhook based and therefore easy to use with Laravel. All features using WebSockets have been removed.
 
 ## Overview
 
