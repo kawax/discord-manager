@@ -1,4 +1,4 @@
-# Discord Manager
+# Laravel Discord Manager
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/invokable/discord-manager)
 
