@@ -1,8 +1,8 @@
-# Onboarding Guide: revolution/discord-manager
+# Onboarding Guide: invokable/discord-manager
 
 ## Overview
 
-The `revolution/discord-manager` is a Laravel package that simplifies Discord bot development by providing a robust framework for handling Discord Interactions via webhooks. This package serves Laravel developers who want to build Discord bots without dealing with the complexities of Discord's API directly.
+The `invokable/discord-manager` is a Laravel package that simplifies Discord bot development by providing a robust framework for handling Discord Interactions via webhooks. This package serves Laravel developers who want to build Discord bots without dealing with the complexities of Discord's API directly.
 
 **Target Users:** Laravel developers building Discord applications, bots, or integrations
 
@@ -41,18 +41,18 @@ The `revolution/discord-manager` is a Laravel package that simplifies Discord bo
 ├── src/
 │   ├── Concerns/           # Reusable traits (WithInteraction)
 │   ├── Console/           # Artisan commands (make:interaction, register)
+│   │   └── stubs/         # Code generation templates
 │   ├── Contracts/         # Interfaces (Factory, InteractionsEvent, InteractionsResponse)  
 │   ├── Events/           # Event classes (InteractionsWebhook)
 │   ├── Exceptions/       # Custom exceptions (CommandNotFountException)
 │   ├── Facades/          # Laravel facades (DiscordManager)
 │   ├── Http/             # Controllers, middleware, responses
 │   ├── Providers/        # Service provider (DiscordInteractionsServiceProvider)
-│   ├── Support/          # Enums (ComponentType, ButtonStyle, TextInputStyle)
+│   ├── Support/          # Enums (CommandType, CommandOptionType, ComponentType, ButtonStyle, TextInputStyle)
 │   └── DiscordCommandRegistry.php # Core manager class
 ├── config/               # Configuration templates
 ├── tests/               # Test suite
-├── .github/workflows/   # CI/CD (testing, linting)
-└── stubs/              # Code generation templates
+└── .github/workflows/   # CI/CD (testing, linting)
 ```
 
 ### Key Entry Points
@@ -107,11 +107,17 @@ The `revolution/discord-manager` is a Laravel package that simplifies Discord bo
 
 **global commands** - Discord commands available across all servers, configured in `discord_interactions.global` array
 
-**DeferredResponse** - Response class that immediately acknowledges Discord while processing continues asynchronously
+**ChannelMessageResponse** - Response class for sending message responses to Discord interactions (`src/Http/Response/ChannelMessageResponse.php`)
 
-**PongResponse** - Special response class for Discord PING health checks
+**DeferredResponse** - Response class that immediately acknowledges Discord while processing continues asynchronously (`src/Http/Response/DeferredResponse.php`)
+
+**PongResponse** - Special response class for Discord PING health checks (`src/Http/Response/PongResponse.php`)
 
 **ComponentType** - Enum defining Discord UI component types (BUTTON, TEXT_INPUT, etc.) (`src/Support/ComponentType.php`)
+
+**CommandOptionType** - Enum defining Discord command option types (STRING, INTEGER, USER, etc.) (`src/Support/CommandOptionType.php`)
+
+**CommandType** - Enum defining Discord command types (CHAT_INPUT, USER, MESSAGE) (`src/Support/CommandType.php`)
 
 **ButtonStyle** - Enum defining Discord button styles (PRIMARY, DANGER, etc.) (`src/Support/ButtonStyle.php`)
 
