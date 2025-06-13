@@ -1,9 +1,2 @@
 vendor
 composer.lock
-build
-.phpunit.result.cache
-.idea
-.vscode
-nbproject
-.DS_Store
-Thumbs.db

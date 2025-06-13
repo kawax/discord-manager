@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1749792643">
-  <project timestamp="1749792643" name="Clover Coverage">
+<coverage generated="1749792986">
+  <project timestamp="1749792986" name="Clover Coverage">
     <package name="Revolution\DiscordManager\Concerns">
       <file name="/home/runner/work/discord-manager/discord-manager/src/Concerns/WithInteraction.php">
         <class name="Revolution\DiscordManager\Concerns\WithInteraction" namespace="Revolution\DiscordManager\Concerns">
